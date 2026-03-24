@@ -8,6 +8,7 @@ type Category = {
 };
 
 const categoriesData: Category[] = [
+  
   {
     title: "T-shirts",
     slug: "/shop?category=t-shirts",
@@ -33,6 +34,7 @@ const categoriesData: Category[] = [
 const CategoriesSection = () => {
   return (
     <div className="flex flex-col space-y-0.5 text-black/60">
+      
       {categoriesData.map((category, idx) => (
         <Link
           key={idx}

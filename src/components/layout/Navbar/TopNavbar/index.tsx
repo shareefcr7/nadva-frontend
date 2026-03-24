@@ -53,13 +53,13 @@ const data: NavMenu = [
     url: "/shop#on-sale",
     children: [],
   },
-  {
-    id: 3,
-    type: "MenuItem",
-    label: "New Arrivals",
-    url: "/shop#new-arrivals",
-    children: [],
-  },
+  // {
+  //   id: 3,
+  //   type: "MenuItem",
+  //   label: "New Arrivals",
+  //   url: "/shop#new-arrivals",
+  //   children: [],
+  // },
   {
     id: 4,
     type: "MenuItem",
@@ -131,7 +131,7 @@ const TopNavbar = () => {
             />
           </Link>
           <CartBtn />
-          <Link href="/#signin" className="p-1">
+          {/* <Link href="/#signin" className="p-1">
             <Image
               priority
               src="/icons/user.svg"
@@ -140,7 +140,7 @@ const TopNavbar = () => {
               alt="user"
               className="max-w-[22px] max-h-[22px]"
             />
-          </Link>
+          </Link> */}
         </div>
       </div>
     </nav>

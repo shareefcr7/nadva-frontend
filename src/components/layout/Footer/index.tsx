@@ -60,9 +60,9 @@ const Footer = () => {
     <footer className="mt-10">
       <div className="relative">
         <div className="absolute bottom-0 w-full h-1/2 bg-[#F0F0F0]"></div>
-        <div className="px-4">
+        {/* <div className="px-4">
           <NewsLetterSection />
-        </div>
+        </div> */}
       </div>
       <div className="pt-8 md:pt-[50px] bg-[#F0F0F0] px-4 pb-4">
         <div className="max-w-frame mx-auto">

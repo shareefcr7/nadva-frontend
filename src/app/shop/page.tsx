@@ -39,10 +39,10 @@ export default function ShopPage() {
           <div className="flex flex-col w-full space-y-5">
             <div className="flex flex-col lg:flex-row lg:justify-between">
               <div className="flex items-center justify-between">
-                <h1 className="font-bold text-2xl md:text-[32px]">Casual</h1>
+                {/* <h1 className="font-bold text-2xl md:text-[32px]">Casual</h1> */}
                 <MobileFilters />
               </div>
-              <div className="flex flex-col sm:items-center sm:flex-row">
+              {/* <div className="flex flex-col sm:items-center sm:flex-row">
                 <span className="text-sm md:text-base text-black/60 mr-3">
                   Showing 1-10 of 100 Products
                 </span>
@@ -59,7 +59,7 @@ export default function ShopPage() {
                     </SelectContent>
                   </Select>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="w-full grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
               {[

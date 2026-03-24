@@ -26,7 +26,7 @@ const ProductCard = ({ data }: ProductCardProps) => {
       </div>
       <strong className="text-black xl:text-xl">{data.title}</strong>
       <div className="flex items-end mb-1 xl:mb-2">
-        <Rating
+        {/* <Rating
           initialValue={data.rating}
           allowFraction
           SVGclassName="inline-block"
@@ -37,10 +37,10 @@ const ProductCard = ({ data }: ProductCardProps) => {
         <span className="text-black text-xs xl:text-sm ml-[11px] xl:ml-[13px] pb-0.5 xl:pb-0">
           {data.rating.toFixed(1)}
           <span className="text-black/60">/5</span>
-        </span>
+        </span> */}
       </div>
       <div className="flex items-center space-x-[5px] xl:space-x-2.5">
-        {data.discount.percentage > 0 ? (
+        {/* {data.discount.percentage > 0 ? (
           <span className="font-bold text-black text-xl xl:text-2xl">
             {`$${Math.round(
               data.price - (data.price * data.discount.percentage) / 100
@@ -50,11 +50,11 @@ const ProductCard = ({ data }: ProductCardProps) => {
           <span className="font-bold text-black text-xl xl:text-2xl">
             {`$${data.price - data.discount.amount}`}
           </span>
-        ) : (
+        ) : ( */}
           <span className="font-bold text-black text-xl xl:text-2xl">
             ${data.price}
           </span>
-        )}
+        {/* )}
         {data.discount.percentage > 0 && (
           <span className="font-bold text-black/40 line-through text-xl xl:text-2xl">
             ${data.price}
@@ -75,7 +75,7 @@ const ProductCard = ({ data }: ProductCardProps) => {
               {`-$${data.discount.amount}`}
             </span>
           )
-        )}
+        )} */}
       </div>
     </Link>
   );
