@@ -11,6 +11,7 @@ export const newArrivalsData: Product[] = [
   {
     id: 1,
     title: "T-shirt with Tape Details",
+    category: "T-shirts",
     srcUrl: "/images/pic1.png",
     gallery: ["/images/pic1.png", "/images/pic10.png", "/images/pic11.png"],
     price: 120,
@@ -23,6 +24,7 @@ export const newArrivalsData: Product[] = [
   {
     id: 2,
     title: "Skinny Fit Jeans",
+    category: "Jeans",
     srcUrl: "/images/pic2.png",
     gallery: ["/images/pic2.png"],
     price: 260,
@@ -35,6 +37,7 @@ export const newArrivalsData: Product[] = [
   {
     id: 3,
     title: "Chechered Shirt",
+    category: "Shirts",
     srcUrl: "/images/pic3.png",
     gallery: ["/images/pic3.png"],
     price: 180,
@@ -47,6 +50,7 @@ export const newArrivalsData: Product[] = [
   {
     id: 4,
     title: "Sleeve Striped T-shirt",
+    category: "T-shirts",
     srcUrl: "/images/pic4.png",
     gallery: ["/images/pic4.png", "/images/pic10.png", "/images/pic11.png"],
     price: 160,
@@ -62,6 +66,7 @@ export const topSellingData: Product[] = [
   {
     id: 5,
     title: "Vertical Striped Shirt",
+    category: "Shirts",
     srcUrl: "/images/pic5.png",
     gallery: ["/images/pic5.png", "/images/pic10.png", "/images/pic11.png"],
     price: 232,
@@ -74,6 +79,7 @@ export const topSellingData: Product[] = [
   {
     id: 6,
     title: "Courage Graphic T-shirt",
+    category: "T-shirts",
     srcUrl: "/images/pic6.png",
     gallery: ["/images/pic6.png", "/images/pic10.png", "/images/pic11.png"],
     price: 145,
@@ -86,6 +92,7 @@ export const topSellingData: Product[] = [
   {
     id: 7,
     title: "Loose Fit Bermuda Shorts",
+    category: "Shorts",
     srcUrl: "/images/pic7.png",
     gallery: ["/images/pic7.png"],
     price: 80,
@@ -98,6 +105,7 @@ export const topSellingData: Product[] = [
   {
     id: 8,
     title: "Faded Skinny Jeans",
+    category: "Jeans",
     srcUrl: "/images/pic8.png",
     gallery: ["/images/pic8.png"],
     price: 210,
@@ -113,6 +121,7 @@ export const relatedProductData: Product[] = [
   {
     id: 12,
     title: "Polo with Contrast Trims",
+    category: "Shirts",
     srcUrl: "/images/pic12.png",
     gallery: ["/images/pic12.png", "/images/pic10.png", "/images/pic11.png"],
     price: 242,
@@ -125,6 +134,7 @@ export const relatedProductData: Product[] = [
   {
     id: 13,
     title: "Gradient Graphic T-shirt",
+    category: "T-shirts",
     srcUrl: "/images/pic13.png",
     gallery: ["/images/pic13.png", "/images/pic10.png", "/images/pic11.png"],
     price: 145,
@@ -137,6 +147,7 @@ export const relatedProductData: Product[] = [
   {
     id: 14,
     title: "Polo with Tipping Details",
+    category: "Shirts",
     srcUrl: "/images/pic14.png",
     gallery: ["/images/pic14.png"],
     price: 180,
@@ -149,6 +160,7 @@ export const relatedProductData: Product[] = [
   {
     id: 15,
     title: "Black Striped T-shirt",
+    category: "T-shirts",
     srcUrl: "/images/pic15.png",
     gallery: ["/images/pic15.png"],
     price: 150,

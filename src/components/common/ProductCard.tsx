@@ -25,6 +25,9 @@ const ProductCard = ({ data }: ProductCardProps) => {
         />
       </div>
       <strong className="text-black xl:text-xl">{data.title}</strong>
+      <p className="text-black/60 text-sm xl:text-base">
+        {data.category}
+      </p>
       <div className="flex items-end mb-1 xl:mb-2">
         {/* <Rating
           initialValue={data.rating}
