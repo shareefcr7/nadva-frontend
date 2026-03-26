@@ -226,7 +226,7 @@ export default function Home() {
       <HeroBanner/>
       <main className="my-[50px] sm:my-[72px]">
         <ProductListSec
-          title="All Products"
+          title="Explore for More"
           data={newArrivalsData}
           viewAllLink="/shop#new-arrivals"
         />
