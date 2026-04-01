@@ -14,10 +14,53 @@ import { RootState } from "@/lib/store";
 import { useAppSelector } from "@/lib/hooks/redux";
 import Link from "next/link";
 
+// WhatsApp configuration
+const WHATSAPP_PHONE = process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "919876543210"; // Make sure to set this in .env.local
+const WHATSAPP_MESSAGE = "Hi! I'd like to place an order through WhatsApp.";
+
 export default function CartPage() {
   const { cart, totalPrice, adjustedTotalPrice } = useAppSelector(
     (state: RootState) => state.carts
   );
+
+  const handleCheckout = () => {
+    try {
+      // Check if cart has items
+      if (!cart || !cart.items || cart.items.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      // Build message with all order details
+      let messageText = `${WHATSAPP_MESSAGE}\n\n`;
+      
+      // Add order items details
+      messageText += `📦 *Order Details:*\n`;
+      messageText += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+      
+      cart.items.forEach((item, index) => {
+        messageText += `\n${index + 1}. *${item.name}*\n`;
+        messageText += `   • Quantity: ${item.quantity}\n`;
+        messageText += `   • Color: ${item.attributes[0] || "N/A"}\n`;
+        messageText += `   • Size: ${item.attributes[1] || "N/A"}\n`;
+        messageText += `   • Price: ₹${Math.round(item.price * item.quantity)}\n`;
+        // messageText += `   • Image: ${item.srcUrl}\n`;
+      });
+      
+      messageText += `\n━━━━━━━━━━━━━━━━━━━━━━\n`;
+      messageText += `\n💰 *Order Total:* ₹${Math.round(adjustedTotalPrice)}\n`;
+      messageText += `📊 *Total Items:* ${cart.items.length}`;
+      
+      const message = encodeURIComponent(messageText);
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${message}`;
+      
+      // Use window.location.href for more reliable navigation
+      window.location.href = whatsappUrl;
+    } catch (error) {
+      console.error("Checkout error:", error);
+      alert("Error processing checkout. Please try again.");
+    }
+  };
 
   return (
     <main className="pb-20">
@@ -100,6 +143,7 @@ export default function CartPage() {
                 </div> */}
                 <Button
                   type="button"
+                  onClick={handleCheckout}
                   className="text-sm md:text-base font-medium bg-black rounded-full w-full py-4 h-[54px] md:h-[60px] group"
                 >
                   Go to Checkout{" "}

@@ -64,13 +64,13 @@ const ProductCard = ({ data }: ProductCardProps) => {
         <div className="-mt-1">
           <span className="text-black text-xs md:text-sm mr-1">Size:</span>
           <span className="text-black/60 text-xs md:text-sm">
-            {data.attributes[0]}
+           {data.attributes[1]}
           </span>
         </div>
         <div className="mb-auto -mt-1.5">
           <span className="text-black text-xs md:text-sm mr-1">Color:</span>
           <span className="text-black/60 text-xs md:text-sm">
-            {data.attributes[1]}
+             {data.attributes[0]}
           </span>
         </div>
         <div className="flex items-center flex-wrap justify-between">

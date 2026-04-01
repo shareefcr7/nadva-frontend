@@ -124,49 +124,65 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-interface BannerSlide {
-  id: number;
-  image: string;
+// interface BannerSlide {
+//   id: number;
+//   image: string;
+//   tag: string;
+//   headline: string;
+//   subheadline: string;
+//   cta: string;
+//   ctaSecondary?: string;
+//   align: "left" | "center" | "right";
+// }
+type BannerSlide = {
+  _id: string;
+  desktopImage: string;
+  mobileImage: string;
+  isActive: boolean;
+  align: "left" | "center" | "right";
   tag: string;
   headline: string;
   subheadline: string;
-  cta: string;
+  cta?: string;
   ctaSecondary?: string;
-  align: "left" | "center" | "right";
-}
+};
 
-const slides: BannerSlide[] = [
+// Fallback banners in case API is not available
+const fallbackSlides: BannerSlide[] = [
   {
-    id: 1,
-    image:
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=90",
+    _id: "1",
+    desktopImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=90",
+    mobileImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=90",
     tag: "New Arrivals",
     headline: "Dress for\nthe Moment",
     subheadline: "Curated pieces for every occasion — minimal, intentional, yours.",
     cta: "Shop Collection",
     ctaSecondary: "Explore Lookbook",
     align: "left",
+    isActive: true,
   },
   {
-    id: 2,
-    image:
-      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600&q=90",
+    _id: "2",
+    desktopImage: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600&q=90",
+    mobileImage: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&q=90",
     tag: "Limited Edition",
     headline: "Summer\nEssentials",
     subheadline: "Lightweight fabrics. Bold silhouettes. Made to move with you.",
     cta: "View All",
     ctaSecondary: "Find Your Size",
     align: "center",
+    isActive: true,
   },
   {
-    id: 3,
-    image:
-      "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1600&q=90",
+    _id: "3",
+    desktopImage: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1600&q=90",
+    mobileImage: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=800&q=90",
     tag: "Sale — Up to 40% Off",
     headline: "Classic\nRedefined",
     subheadline: "Timeless staples reimagined for the modern wardrobe.",
     cta: "Shop Sale",
     align: "right",
+    isActive: true,
   },
 ];
 
@@ -176,6 +192,8 @@ export default function HeroBanner() {
   const [animating, setAnimating] = useState(false);
   const [direction, setDirection] = useState<"next" | "prev">("next");
   const [paused, setPaused] = useState(false);
+  const [slides, setSlides] = useState<BannerSlide[]>([]);
+  const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
   const goTo = useCallback(
     (index: number, dir: "next" | "prev" = "next") => {
@@ -191,14 +209,46 @@ export default function HeroBanner() {
     },
     [animating, current]
   );
+  const isMobile =
+    typeof window !== "undefined" && window.innerWidth < 768;
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const res = await fetch(`${api}/api/banner`, {
+          next: { revalidate: 3600 },
+        });
+        const data = await res.json();
+
+        if (data.banners && Array.isArray(data.banners)) {
+          // Only active banners
+          const activeBanners = data.banners.filter((b: BannerSlide) => b.isActive);
+          if (activeBanners.length > 0) {
+            setSlides(activeBanners);
+            return;
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch banners, using fallback:", err);
+      }
+      // Use fallback banners if API fails or no active banners found
+      setSlides(fallbackSlides);
+    };
+
+    fetchBanners();
+  }, []);
 
   const next = useCallback(() => {
-    goTo((current + 1) % slides.length, "next");
-  }, [current, goTo]);
+    if (slides.length > 0) {
+      goTo((current + 1) % slides.length, "next");
+    }
+  }, [current, goTo, slides.length]);
 
   const back = useCallback(() => {
-    goTo((current - 1 + slides.length) % slides.length, "prev");
-  }, [current, goTo]);
+    if (slides.length > 0) {
+      goTo((current - 1 + slides.length) % slides.length, "prev");
+    }
+  }, [current, goTo, slides.length]);
 
   useEffect(() => {
     if (paused) return;
@@ -206,7 +256,10 @@ export default function HeroBanner() {
     return () => clearInterval(id);
   }, [next, paused]);
 
-  const slide = slides[current];
+  // Fallback will ensure slides is never empty
+  if (!slides || slides.length === 0) {
+    return null;
+  }
 
   return (
     <>
@@ -489,23 +542,36 @@ export default function HeroBanner() {
           else if (i === prev) cls = "slide-img exiting";
           return (
             <div
-              key={s.id}
+              key={s._id}
               className={cls}
-              style={{ backgroundImage: `url(${s.image})` }}
+              // style={{ backgroundImage: `url(${s.image})` }}
+//               style={{
+//   // backgroundImage: `url(${s.desktopImage})`
+  
+
+//   backgroundImage: `url(${isMobile ? s.mobileImage : s.desktopImage})`
+
+// }}
+style={{
+  backgroundImage: `url(${
+    isMobile ? s.mobileImage : s.desktopImage
+  })`,
+}}
               aria-hidden={i !== current}
             />
           );
         })}
 
         {/* overlay */}
-        <div className={`slide-overlay ${slide.align}`} />
+        <div className={`slide-overlay ${slides[current].align}`} />
 
         {/* text content — re-mount on slide change to retrigger animations */}
-        <div className={`banner-content ${slide.align}`} key={current}>
+        <div className={`banner-content ${slides[current].align}`} key={current}>
           <div className="text-block">
-            <span className="slide-tag">{slide.tag}</span>
-            <h1 className="slide-headline">{slide.headline}</h1>
-            <p className="slide-sub">{slide.subheadline}</p>
+            {/* <span className="slide-tag">{slides[current].tag}</span> */}
+            
+            <h1 className="slide-headline">{slides[current].headline}</h1>
+            <p className="slide-sub">{slides[current].subheadline}</p>
             <div className="btn-row">
               {/* <button className="btn-primary">{slide.cta}</button>
               {slide.ctaSecondary && (

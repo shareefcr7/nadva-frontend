@@ -3,6 +3,8 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "@/components/storage";
 import productsReducer from "./features/products/productsSlice";
 import cartsReducer from "./features/carts/cartsSlice";
+import filtersReducer from "./features/filters/filtersSlice";
+import searchReducer from "./features/search/searchSlice";
 
 const persistConfig = {
   key: "root",
@@ -14,30 +16,22 @@ const persistConfig = {
 const rootReducer = combineReducers({
   products: productsReducer,
   carts: cartsReducer,
+  filters: filtersReducer,
+  search: searchReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const makeStore = () => {
-  const store = configureStore({
-    reducer: persistedReducer,
-    devTools: process.env.NODE_ENV !== "production",
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: false,
-      }),
-  });
+// Single shared store instance — created once for the whole app
+export const store = configureStore({
+  reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
+});
 
-  const persistor = persistStore(store);
-  return { store, persistor };
-};
+export const persistor = persistStore(store);
 
-const store = makeStore().store;
-
-// Infer the type of the store
 export type AppStore = typeof store;
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
-export { store };

@@ -2,10 +2,15 @@
 
 import { Product } from "@/types/product.types";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const PhotoSection = ({ data }: { data: Product }) => {
   const [selected, setSelected] = useState<string>(data.srcUrl);
+
+  // When the variant changes (srcUrl changes), reset to the new variant's first image
+  useEffect(() => {
+    setSelected(data.srcUrl);
+  }, [data.srcUrl]);
 
   return (
     <div className="flex flex-col-reverse lg:flex-row lg:space-x-3.5">
@@ -25,6 +30,7 @@ const PhotoSection = ({ data }: { data: Product }) => {
                 className="rounded-md w-full h-full object-cover hover:scale-110 transition-all duration-500"
                 alt={data.title}
                 priority
+                unoptimized
               />
             </button>
           ))}

@@ -1,29 +1,29 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
-import { makeStore } from "../lib/store";
+import { store, persistor } from "../lib/store";
 import { PersistGate } from "redux-persist/integration/react";
-import SpinnerbLoader from "@/components/ui/SpinnerbLoader";
 
 type Props = {
   children: React.ReactNode;
 };
 
 const Providers = ({ children }: Props) => {
-  const { store, persistor } = makeStore();
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   return (
     <Provider store={store}>
-      <PersistGate
-        loading={
-          <div className="flex items-center justify-center h-96">
-            <SpinnerbLoader className="w-10 border-2 border-gray-300 border-r-gray-600" />
-          </div>
-        }
+      <PersistGate 
+        loading={null} 
         persistor={persistor}
+        onBeforeLift={() => setIsHydrated(true)}
       >
-        {children}
+        {isHydrated ? children : <div className="invisible">{children}</div>}
       </PersistGate>
     </Provider>
   );

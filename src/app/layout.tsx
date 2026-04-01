@@ -1,11 +1,26 @@
 import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
 import { satoshi } from "@/styles/fonts";
-import TopBanner from "@/components/layout/Banner/TopBanner";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import TopNavbar from "@/components/layout/Navbar/TopNavbar";
 import Footer from "@/components/layout/Footer";
 import HolyLoader from "holy-loader";
 import Providers from "./providers";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Shopco",
@@ -23,14 +38,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={satoshi.className}>
+      <body className={`${satoshi.className} ${cormorant.variable} ${dmSans.variable} flex flex-col min-h-screen`}>
         <HolyLoader color="#868686" />
-        {/* <TopBanner /> */}
         <Providers>
+          {/* Navbar */}
           <TopNavbar />
-          {children}
+          
+          {/* Main Content - Grows to fill available space */}
+          <main className="flex-1">
+            {children}
+          </main>
+          
+          {/* Footer - Always at bottom */}
+          <Footer />
         </Providers>
-        <Footer />
       </body>
     </html>
   );

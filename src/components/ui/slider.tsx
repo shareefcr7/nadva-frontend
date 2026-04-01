@@ -61,8 +61,8 @@ const Slider = React.forwardRef<
               left: `${((values[0] - min) / (max - min)) * 100}%`,
             }}
           >
-            {label}
-            {values[0]}
+            {/* {label} */}
+            {/* {values[0]} */}
           </div>
           <SliderPrimitive.Thumb className="relative block h-4 w-4 rounded-full border border-primary/50 bg-black shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" />
 
@@ -73,8 +73,8 @@ const Slider = React.forwardRef<
               left: `${((values[1] - min) / (max - min)) * 100}%`,
             }}
           >
-            {label}
-            {values[1]}
+            {/* {label}
+            {values[1]} */}
           </div>
           <SliderPrimitive.Thumb className="relative block h-4 w-4 rounded-full border border-primary/50 bg-black shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" />
         </SliderPrimitive.Root>

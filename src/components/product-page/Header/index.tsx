@@ -1,94 +1,143 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import PhotoSection from "./PhotoSection";
-import { Product } from "@/types/product.types";
+import { Product, ProductVariant, SizeOption } from "@/types/product.types";
 import { integralCF } from "@/styles/fonts";
 import { cn } from "@/lib/utils";
-import Rating from "@/components/ui/Rating";
-import ColorSelection from "./ColorSelection";
-import SizeSelection from "./SizeSelection";
 import AddToCardSection from "./AddToCardSection";
+import { IoMdCheckmark } from "react-icons/io";
 
 const Header = ({ data }: { data: Product }) => {
+  const variants = data.variants ?? [];
+  const defaultVariant = variants.find((v) => v.isDefault) || variants[0] || null;
+
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(defaultVariant);
+  const [selectedSize, setSelectedSize] = useState<SizeOption | null>(
+    defaultVariant?.sizesArray?.[0] || null
+  );
+
+  const displayPrice = selectedVariant?.price ?? data.price;
+  const displayImages = selectedVariant?.images?.length
+    ? selectedVariant.images
+    : data.gallery ?? [];
+  const displaySrc = displayImages[0] || data.srcUrl;
+  const sizes = selectedVariant?.sizesArray ?? [];
+
+  const handleVariantSelect = (v: ProductVariant) => {
+    setSelectedVariant(v);
+    setSelectedSize(v.sizesArray?.[0] || null);
+  };
+
+  const displayProduct: Product = {
+    ...data,
+    srcUrl: displaySrc,
+    gallery: displayImages,
+    price: displayPrice,
+  };
+
+  // attributes passed to cart: [color, size]
+  const cartAttributes = [
+    selectedVariant?.color || "",
+    selectedSize?.size || "",
+  ].filter(Boolean);
+
   return (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <PhotoSection data={data} />
-        </div>
-        <div>
-          <h1
-            className={cn([
-              integralCF.className,
-              "text-2xl md:text-[40px] md:leading-[40px] mb-3 md:mb-3.5 capitalize",
-            ])}
-          >
-            {data.title}
-          </h1>
-          <div className="flex items-center mb-3 sm:mb-3.5">
-            {/* <Rating
-              initialValue={data.rating}
-              allowFraction
-              SVGclassName="inline-block"
-              emptyClassName="fill-gray-50"
-              size={25}
-              readonly
-            /> */}
-            {/* <span className="text-black text-xs sm:text-sm ml-[11px] sm:ml-[13px] pb-0.5 sm:pb-0">
-              {data.rating.toFixed(1)}
-              <span className="text-black/60">/5</span>
-            </span> */}
-          </div>
-          <div className="flex items-center space-x-2.5 sm:space-x-3 mb-5">
-            {data.discount.percentage > 0 ? (
-              <span className="font-bold text-black text-2xl sm:text-[32px]">
-                {`₹${Math.round(
-                  data.price - (data.price * data.discount.percentage) / 100
-                )}`}
-              </span>
-            ) : data.discount.amount > 0 ? (
-              <span className="font-bold text-black text-2xl sm:text-[32px]">
-                {`₹${data.price - data.discount.amount}`}
-              </span>
-            ) : (
-              <span className="font-bold text-black text-2xl sm:text-[32px]">
-                ₹{data.price}
-              </span>
-            )}
-            {/* {data.discount.percentage > 0 && (
-              <span className="font-bold text-black/40 line-through text-2xl sm:text-[32px]">
-                ${data.price}
-              </span>
-            )} */}
-            {data.discount.amount > 0 && (
-              <span className="font-bold text-black/40 line-through text-2xl sm:text-[32px]">
-                ₹{data.price}
-              </span>
-            )}
-            {/* {data.discount.percentage > 0 ? (
-              <span className="font-medium text-[10px] sm:text-xs py-1.5 px-3.5 rounded-full bg-[#FF3333]/10 text-[#FF3333]">
-                {`-${data.discount.percentage}%`}
-              </span>
-            ) : (
-              data.discount.amount > 0 && (
-                <span className="font-medium text-[10px] sm:text-xs py-1.5 px-3.5 rounded-full bg-[#FF3333]/10 text-[#FF3333]">
-                  {`-$${data.discount.amount}`}
-                </span>
-              )
-            )} */}
-          </div>
-          <p className="text-sm sm:text-base text-black/60 mb-5">
-            This graphic t-shirt which is perfect for any occasion. Crafted from
-            a soft and breathable fabric, it offers superior comfort and style.
-          </p>
-          <hr className="h-[1px] border-t-black/10 mb-5" />
-          {/* <ColorSelection /> */}
-          {/* <hr className="h-[1px] border-t-black/10 my-5" /> */}
-          <SizeSelection />
-          <hr className="hidden md:block h-[1px] border-t-black/10 my-5" />
-          <AddToCardSection data={data} />
-        </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div>
+        <PhotoSection data={displayProduct} />
       </div>
-    </>
+      <div>
+        {/* Title */}
+        <h1
+          className={cn([
+            integralCF.className,
+            "text-2xl md:text-[40px] md:leading-[40px] mb-3 md:mb-3.5 capitalize",
+          ])}
+        >
+          {data.title}
+        </h1>
+
+        {/* Price */}
+        <div className="flex items-center space-x-2.5 sm:space-x-3 mb-5">
+          <span className="font-bold text-black text-2xl sm:text-[32px]">
+            ₹{displayPrice}
+          </span>
+        </div>
+
+        {/* Description */}
+        <p className="text-sm sm:text-base text-black/60 mb-5">
+          {data.description ||
+            "This product is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style."}
+        </p>
+
+        <hr className="h-[1px] border-t-black/10 mb-5" />
+
+        {/* Color / Variant selection */}
+        {variants.length > 0 && (
+          <>
+            <div className="flex flex-col mb-5">
+              <span className="text-sm sm:text-base text-black/60 mb-3">
+                Select Color
+              </span>
+              <div className="flex items-center flex-wrap gap-3">
+                {variants.map((v) => (
+                  <button
+                    key={v._id}
+                    type="button"
+                    title={v.color}
+                    onClick={() => handleVariantSelect(v)}
+                    className={cn(
+                      "w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center transition-all",
+                      selectedVariant?._id === v._id
+                        ? "border-black scale-110"
+                        : "border-transparent"
+                    )}
+                    style={{ backgroundColor: v.color || "#ccc" }}
+                  >
+                    {selectedVariant?._id === v._id && (
+                      <IoMdCheckmark className="text-white text-base drop-shadow" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <hr className="h-[1px] border-t-black/10 mb-5" />
+          </>
+        )}
+
+        {/* Size selection */}
+        {sizes.length > 0 && (
+          <>
+            <div className="flex flex-col mb-5">
+              <span className="text-sm sm:text-base text-black/60 mb-4">
+                Choose Size
+              </span>
+              <div className="flex items-center flex-wrap gap-3">
+                {sizes.map((s) => (
+                  <button
+                    key={s._id}
+                    type="button"
+                    onClick={() => setSelectedSize(s)}
+                    className={cn(
+                      "bg-[#F0F0F0] px-6 py-3 text-sm rounded-full font-medium transition-all",
+                      selectedSize?._id === s._id
+                        ? "bg-black text-white"
+                        : "text-black hover:bg-black/10"
+                    )}
+                  >
+                    {s.size.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <hr className="hidden md:block h-[1px] border-t-black/10 mb-5" />
+          </>
+        )}
+
+        <AddToCardSection data={displayProduct} attributes={cartAttributes} />
+      </div>
+    </div>
   );
 };
 
