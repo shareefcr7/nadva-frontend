@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import "@/styles/banner.css";
 
 export type BannerSlide = {
   _id: string;

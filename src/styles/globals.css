@@ -1,8 +1,8 @@
+@import "./banner.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "./banner.css";
 
 :root {
   --foreground-rgb: 0, 0, 0;
