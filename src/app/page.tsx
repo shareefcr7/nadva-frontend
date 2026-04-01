@@ -1,15 +1,13 @@
 import ProductListSec from "@/components/common/ProductListSec";
 import HeroBanner from "@/components/homepage/Header";
 import { Product } from "@/types/product.types";
-// const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
+export const dynamic = "force-dynamic";
+
 const api = process.env.NEXT_PUBLIC_API_URL;
 
-if (!api) {
-  throw new Error("API URL is not defined");
-}
-
-
 async function getProducts(): Promise<Product[]> {
+  if (!api) return [];
   try {
     const res = await fetch(`${api}/api/product`, {
       next: { revalidate: 3600 }, 
