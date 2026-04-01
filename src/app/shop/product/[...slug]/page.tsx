@@ -2,13 +2,16 @@ import BreadcrumbProduct from "@/components/product-page/BreadcrumbProduct";
 import Header from "@/components/product-page/Header";
 import { Product, ProductVariant } from "@/types/product.types";
 import { notFound } from "next/navigation";
+
+export const dynamic = "force-dynamic";
+
 const api = process.env.NEXT_PUBLIC_API_URL;
 
 async function getProduct(id: string): Promise<Product | null> {
   if (!api) return null;
   try {
     const res = await fetch(`${api}/api/product/${id}`, {
-      next: { revalidate: 3600 }, // Cache for 1 hour for better performance
+      cache: "no-store",
     });
     if (!res.ok) return null;
     

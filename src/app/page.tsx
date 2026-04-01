@@ -10,7 +10,7 @@ async function getProducts(): Promise<Product[]> {
   if (!api) return [];
   try {
     const res = await fetch(`${api}/api/product`, {
-      next: { revalidate: 3600 }, 
+      cache: "no-store",
     });
     if (!res.ok) return [];
     
