@@ -25,7 +25,7 @@ const CategoriesSection = () => {
   const selectedCategories = useSelector(
     (state: RootState) => state.filters.categories
   );
-  const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  const api = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const fetchCategories = async () => {

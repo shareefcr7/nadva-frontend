@@ -35,7 +35,7 @@ const ShopProductsList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const searchParams = useSearchParams();
-  const api= process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  const api= process.env.NEXT_PUBLIC_API_URL;
 
   const itemsPerPage = 12;
 

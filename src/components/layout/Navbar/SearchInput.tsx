@@ -19,7 +19,7 @@ const SearchInput = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestionsRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  const api = process.env.NEXT_PUBLIC_API_URL;
 
   const { query, suggestions, isLoading } = useSelector(
     (state: RootState) => state.search

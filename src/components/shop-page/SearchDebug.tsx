@@ -9,7 +9,7 @@ export default function SearchDebug() {
   const sizes = searchParams.get("sizes");
   const minPrice = searchParams.get("minPrice");
   const maxPrice = searchParams.get("maxPrice");
-  const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  const api = process.env.NEXT_PUBLIC_API_URL;
 
   const requestUrl = `${api}/api/product?${
     search ? `search=${encodeURIComponent(search)}&query=${encodeURIComponent(search)}&` : ""
