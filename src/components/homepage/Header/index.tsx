@@ -54,6 +54,9 @@ const fallbackSlides: BannerSlide[] = [
   },
 ];
 
+// Module-level banner cache — fetched once per session
+let bannerCache: BannerSlide[] | null = null;
+
 export default function HeroBanner() {
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
@@ -86,6 +89,12 @@ export default function HeroBanner() {
       return;
     }
 
+    // Use cached banners if already fetched this session
+    if (bannerCache) {
+      setSlides(bannerCache);
+      return;
+    }
+
     const fetchBanners = async () => {
       try {
         const res = await fetch(`${api}/banner`);
@@ -97,6 +106,7 @@ export default function HeroBanner() {
         if (data.banners && Array.isArray(data.banners)) {
           const activeBanners = data.banners.filter((b: BannerSlide) => b.isActive);
           if (activeBanners.length > 0) {
+            bannerCache = activeBanners;
             setSlides(activeBanners);
             return;
           }
@@ -104,6 +114,7 @@ export default function HeroBanner() {
       } catch (err) {
         console.error("Failed to fetch banners, using fallback:", err);
       }
+      bannerCache = fallbackSlides;
       setSlides(fallbackSlides);
     };
 

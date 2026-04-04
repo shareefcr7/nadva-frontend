@@ -23,6 +23,13 @@ const CategoriesSection = () => {
   useEffect(() => {
     if (!api) { setLoading(false); return; }
 
+    // Module-level cache — only fetch once per session
+    if ((window as any).__categoryCache) {
+      setCategories((window as any).__categoryCache);
+      setLoading(false);
+      return;
+    }
+
     const fetchCategories = async () => {
       try {
         const res = await fetch(`${api}/category`);
@@ -31,10 +38,12 @@ const CategoriesSection = () => {
           return;
         }
         const data = await res.json();
-        if (Array.isArray(data)) setCategories(data);
-        else if (Array.isArray(data.categories)) setCategories(data.categories);
-        else if (Array.isArray(data.data)) setCategories(data.data);
-        else setCategories([]);
+        let cats: Category[] = [];
+        if (Array.isArray(data)) cats = data;
+        else if (Array.isArray(data.categories)) cats = data.categories;
+        else if (Array.isArray(data.data)) cats = data.data;
+        (window as any).__categoryCache = cats;
+        setCategories(cats);
       } catch {
         setCategories([]);
       } finally {

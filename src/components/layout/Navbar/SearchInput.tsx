@@ -70,7 +70,7 @@ const SearchInput = () => {
 
     const timer = setTimeout(fetchSuggestions, 300);
     return () => { clearTimeout(timer); controller.abort(); };
-  }, [query, api]);
+  }, [query]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {

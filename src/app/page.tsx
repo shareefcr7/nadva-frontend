@@ -11,8 +11,7 @@ async function getProducts(): Promise<Product[]> {
   try {
     const res = await fetch(`${api}/product`, {
       next: { revalidate: 60 },
-    });
-    if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return [];
+    });    if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return [];
     const data = await res.json();
     if (!data.products) return [];
 
