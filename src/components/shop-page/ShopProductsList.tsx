@@ -44,45 +44,69 @@ const ShopProductsList = () => {
   const [totalPages, setTotalPages] = useState(1);
   const searchParams = useSearchParams();
   const api = process.env.NEXT_PUBLIC_API_URL;
-  const prevParamsRef = useRef<string>("");
+  const prevParamsRef = useRef<string | null>(null);
+  // Cache all products in memory so filters don't re-fetch
+  const allProductsCache = useRef<Product[]>([]);
+  const cacheLoadedRef = useRef(false);
+
+  // Reset page to 1 when search params change
+  useEffect(() => {
+    const paramsKey = searchParams.toString();
+    if (prevParamsRef.current !== null && paramsKey !== prevParamsRef.current) {
+      setCurrentPage(1);
+    }
+    prevParamsRef.current = paramsKey;
+  }, [searchParams]);
 
   useEffect(() => {
-    if (!api) return;
-
-    const paramsKey = searchParams.toString();
-    const filtersChanged = paramsKey !== prevParamsRef.current;
-    const page = filtersChanged ? 1 : currentPage;
-
-    if (filtersChanged) {
-      prevParamsRef.current = paramsKey;
-      if (currentPage !== 1) { setCurrentPage(1); return; }
-    }
+    if (!api) { setLoading(false); return; }
 
     const controller = new AbortController();
 
-    const fetchProducts = async () => {
+    const applyFilters = (all: Product[]) => {
+      const categories = searchParams.get("categories");
+      const minPrice = searchParams.get("minPrice");
+      const maxPrice = searchParams.get("maxPrice");
+      const search = searchParams.get("search");
+
+      let filtered = all;
+
+      if (categories) {
+        const selected = categories.split(",").map(c => c.trim().toLowerCase()).filter(Boolean);
+        if (selected.length > 0) {
+          filtered = filtered.filter(p => selected.includes((p.category || "").toLowerCase().trim()));
+        }
+      }
+      if (minPrice || maxPrice) {
+        const min = minPrice ? Number(minPrice) : 0;
+        const max = maxPrice ? Number(maxPrice) : Infinity;
+        filtered = filtered.filter(p => p.price >= min && p.price <= max);
+      }
+      if (search) {
+        const q = search.toLowerCase();
+        filtered = filtered.filter(p =>
+          p.title.toLowerCase().includes(q) ||
+          (p.category || "").toLowerCase().includes(q)
+        );
+      }
+
+      const total = filtered.length;
+      setTotalPages(Math.max(1, Math.ceil(total / ITEMS_PER_PAGE)));
+      const start = (currentPage - 1) * ITEMS_PER_PAGE;
+      setProducts(filtered.slice(start, start + ITEMS_PER_PAGE));
+      setLoading(false);
+    };
+
+    // If cache is ready, filter instantly without network call
+    if (cacheLoadedRef.current) {
+      applyFilters(allProductsCache.current);
+      return;
+    }
+
+    const fetchAllProducts = async () => {
       setLoading(true);
       try {
-        const params = new URLSearchParams();
-        const categories = searchParams.get("categories");
-        const sizes = searchParams.get("sizes");
-        const minPrice = searchParams.get("minPrice");
-        const maxPrice = searchParams.get("maxPrice");
-        const search = searchParams.get("search");
-
-        if (categories) params.append("category", categories);
-        if (sizes) params.append("sizes", sizes);
-        if (minPrice) params.append("minPrice", minPrice);
-        if (maxPrice) params.append("maxPrice", maxPrice);
-        if (search) params.append("search", search);
-
-        params.append("skip", String((currentPage - 1) * ITEMS_PER_PAGE));
-        params.append("limit", String(ITEMS_PER_PAGE));
-
-        const res = await fetch(
-          `${api}/product?${params.toString()}`,
-          { signal: controller.signal }
-        );
+        const res = await fetch(`${api}/product?skip=0&limit=500`, { signal: controller.signal });
         if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) {
           setProducts([]);
           setTotalPages(1);
@@ -106,25 +130,24 @@ const ShopProductsList = () => {
             };
           });
 
-          setProducts(mapped);
-          // Use total from API if available, otherwise estimate
-          const total = data.total ?? data.products.length;
-          setTotalPages(Math.max(1, Math.ceil(total / ITEMS_PER_PAGE)));
+          allProductsCache.current = mapped;
+          cacheLoadedRef.current = true;
+          applyFilters(mapped);
         } else {
           setProducts([]);
           setTotalPages(1);
+          setLoading(false);
         }
       } catch (err: any) {
         if (err.name !== "AbortError") {
           setProducts([]);
           setTotalPages(1);
+          setLoading(false);
         }
-      } finally {
-        setLoading(false);
       }
     };
 
-    fetchProducts();
+    fetchAllProducts();
     return () => controller.abort();
   }, [searchParams, currentPage, api]);
 
@@ -146,22 +169,21 @@ const ShopProductsList = () => {
         </div>
       )}
 
-      {/* Grid */}
-      <div className="w-full grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
-        {loading
-          ? Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => <SkeletonCard key={i} />)
-          : products.map((product, idx) => (
-              <ProductCard key={product.id} data={product} priority={idx < 3} />
-            ))}
-      </div>
-
-      {/* Empty state */}
-      {!loading && products.length === 0 && (
+      {/* Always show skeletons while loading, never show empty state during load */}
+      {loading ? (
+        <div className="w-full grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+          {Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => <SkeletonCard key={i} />)}
+        </div>
+      ) : products.length > 0 ? (
+        <div className="w-full grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+          {products.map((product, idx) => (
+            <ProductCard key={product.id} data={product} priority={idx < 3} />
+          ))}
+        </div>
+      ) : (
         <div className="w-full text-center py-20">
           <p className="text-black/60">
-            {search
-              ? `No products found for "${search}".`
-              : "No products found matching your filters."}
+            {search ? `No products found for "${search}".` : "Loading..."}
           </p>
         </div>
       )}

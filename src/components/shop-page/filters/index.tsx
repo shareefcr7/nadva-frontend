@@ -23,15 +23,16 @@ const Filters = ({ onApply }: { onApply?: () => void }) => {
     if (filters.sizes.length > 0) {
       params.append("sizes", filters.sizes.join(","));
     }
-    if (filters.priceRange) {
+    // Only append price if not default range
+    if (filters.priceRange[0] > 0) {
       params.append("minPrice", filters.priceRange[0].toString());
+    }
+    if (filters.priceRange[1] < 5000) {
       params.append("maxPrice", filters.priceRange[1].toString());
     }
 
     const queryString = params.toString();
-    const url = `/shop${queryString ? `?${queryString}` : ""}`;
-
-    router.push(url);
+    router.push(`/shop${queryString ? `?${queryString}` : ""}`);
     onApply?.();
   };
 
