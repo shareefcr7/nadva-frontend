@@ -107,10 +107,10 @@ export default function CartPage() {
                     </span> */}
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="md:text-xl text-black/60">
+                    {/* <span className="md:text-xl text-black/60">
                       Delivery Fee
                     </span>
-                    <span className="md:text-xl font-bold">Free</span>
+                    <span className="md:text-xl font-bold">Free</span> */}
                   </div>
                   <hr className="border-t-black/10" />
                   <div className="flex items-center justify-between">
