@@ -25,6 +25,11 @@ interface ApiProduct {
   }>;
 }
 
+// Module-level cache — persists across navigations within the same session
+let productCache: Product[] = [];
+let cacheTimestamp = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
 const ITEMS_PER_PAGE = 12;
 
 // Skeleton card shown while loading
@@ -45,7 +50,6 @@ const ShopProductsList = () => {
   const searchParams = useSearchParams();
   const api = process.env.NEXT_PUBLIC_API_URL;
   const prevParamsRef = useRef<string | null>(null);
-  // Cache all products in memory so filters don't re-fetch
   const allProductsCache = useRef<Product[]>([]);
   const cacheLoadedRef = useRef(false);
 
@@ -97,6 +101,12 @@ const ShopProductsList = () => {
       setLoading(false);
     };
 
+    // If module-level cache is fresh, filter instantly without network call
+    if (productCache.length > 0 && Date.now() - cacheTimestamp < CACHE_TTL) {
+      allProductsCache.current = productCache;
+      cacheLoadedRef.current = true;
+    }
+
     // If cache is ready, filter instantly without network call
     if (cacheLoadedRef.current) {
       applyFilters(allProductsCache.current);
@@ -106,7 +116,8 @@ const ShopProductsList = () => {
     const fetchAllProducts = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`${api}/product?skip=0&limit=500`, { signal: controller.signal });
+        // Fetch only 100 products to avoid overloading the server
+        const res = await fetch(`${api}/product?skip=0&limit=100`, { signal: controller.signal });
         if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) {
           setProducts([]);
           setTotalPages(1);
@@ -132,6 +143,9 @@ const ShopProductsList = () => {
 
           allProductsCache.current = mapped;
           cacheLoadedRef.current = true;
+          // Save to module-level cache with timestamp
+          productCache = mapped;
+          cacheTimestamp = Date.now();
           applyFilters(mapped);
         } else {
           setProducts([]);
