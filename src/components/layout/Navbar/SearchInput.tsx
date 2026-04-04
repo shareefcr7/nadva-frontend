@@ -40,7 +40,7 @@ const SearchInput = () => {
         
         // Fetch all products and filter on frontend
         const res = await fetch(
-          `${api}/api/product?limit=100`
+          `${api}/product?limit=100`
         );
         const data = await res.json();
 

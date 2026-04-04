@@ -11,7 +11,7 @@ export default function SearchDebug() {
   const maxPrice = searchParams.get("maxPrice");
   const api = process.env.NEXT_PUBLIC_API_URL;
 
-  const requestUrl = `${api}/api/product?${
+  const requestUrl = `${api}/product?${
     search ? `search=${encodeURIComponent(search)}&query=${encodeURIComponent(search)}&` : ""
   }${categories ? `category=${categories}&` : ""}${
     sizes ? `sizes=${sizes}&` : ""

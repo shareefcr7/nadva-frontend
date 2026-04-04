@@ -2,18 +2,17 @@ import ProductListSec from "@/components/common/ProductListSec";
 import HeroBanner from "@/components/homepage/Header";
 import { Product } from "@/types/product.types";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 const api = process.env.NEXT_PUBLIC_API_URL;
 
 async function getProducts(): Promise<Product[]> {
   if (!api) return [];
   try {
-    const res = await fetch(`${api}/api/product`, {
-      cache: "no-store",
+    const res = await fetch(`${api}/product`, {
+      next: { revalidate: 60 },
     });
-    if (!res.ok) return [];
-    
+    if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return [];
     const data = await res.json();
     if (!data.products) return [];
 

@@ -1,8 +1,22 @@
+import { Suspense } from "react";
 import BreadcrumbShop from "@/components/shop-page/BreadcrumbShop";
 import MobileFilters from "@/components/shop-page/filters/MobileFilters";
 import Filters from "@/components/shop-page/filters";
 import { FiSliders } from "react-icons/fi";
 import ShopProductsList from "@/components/shop-page/ShopProductsList";
+
+const ProductsSkeleton = () => (
+  <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-5 animate-pulse">
+    {Array.from({ length: 12 }).map((_, i) => (
+      <div key={i} className="flex flex-col">
+        <div className="bg-gray-200 rounded-[20px] aspect-square mb-3" />
+        <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
+        <div className="h-3 bg-gray-200 rounded w-1/2 mb-2" />
+        <div className="h-5 bg-gray-200 rounded w-1/3" />
+      </div>
+    ))}
+  </div>
+);
 
 export default function ShopPage() {
   return (
@@ -16,15 +30,19 @@ export default function ShopPage() {
               <span className="font-bold text-black text-xl">Filters</span>
               <FiSliders className="text-2xl text-black/40" />
             </div>
-            <Filters />
+            <Suspense fallback={<div className="space-y-3 animate-pulse">{Array.from({length:5}).map((_,i)=><div key={i} className="h-4 bg-gray-200 rounded"/>)}</div>}>
+              <Filters />
+            </Suspense>
           </div>
           <div className="flex flex-col w-full space-y-5">
-            <div className="flex flex-col lg:flex-row lg:justify-between">
-              <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between">
+              <Suspense fallback={null}>
                 <MobileFilters />
-              </div>
+              </Suspense>
             </div>
-            <ShopProductsList />
+            <Suspense fallback={<ProductsSkeleton />}>
+              <ShopProductsList />
+            </Suspense>
           </div>
         </div>
       </div>

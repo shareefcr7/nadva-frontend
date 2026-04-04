@@ -30,7 +30,7 @@ const CategoriesSection = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch(`${api}/api/category`);
+        const res = await fetch(`${api}/category`);
         const data = await res.json();
 
         // Handle different API response structures

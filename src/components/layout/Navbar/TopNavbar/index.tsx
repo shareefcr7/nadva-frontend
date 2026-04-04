@@ -1,16 +1,7 @@
 import { cn } from "@/lib/utils";
 import { integralCF } from "@/styles/fonts";
 import Link from "next/link";
-import React from "react";
-import { NavMenu } from "../navbar.types";
-import { MenuList } from "./MenuList";
-import {
-  NavigationMenu,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
-import { MenuItem } from "./MenuItem";
-import Image from "next/image";
-import ResTopNavbar from "./ResTopNavbar";
+import React, { Suspense } from "react";
 import CartBtn from "./CartBtn";
 import SearchInput from "../SearchInput";
 
@@ -19,9 +10,6 @@ const TopNavbar = () => {
     <nav className="sticky top-0 bg-white z-20">
       <div className="flex relative max-w-frame mx-auto items-center justify-between md:justify-start py-5 md:py-6 px-4 xl:px-0">
         <div className="flex items-center">
-          <div className="block md:hidden mr-4">
-            {/* <ResTopNavbar data={data} /> */}
-          </div>
           <Link
             href="/"
             className={cn([
@@ -32,33 +20,13 @@ const TopNavbar = () => {
             Auravault
           </Link>
         </div>
-        {/* <NavigationMenu className="hidden md:flex mr-2 lg:mr-7"> */}
-          {/* <NavigationMenuList>
-            {data.map((item) => (
-              <React.Fragment key={item.id}>
-                {item.type === "MenuItem" && (
-                  <MenuItem label={item.label} url={item.url} />
-                )}
-                {item.type === "MenuList" && (
-                  <MenuList data={item.children} label={item.label} />
-                )}
-              </React.Fragment>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu> */}
-        <SearchInput />
+        <Suspense fallback={<div className="w-full md:mr-3 lg:mr-10 h-10 bg-[#F0F0F0] rounded-full animate-pulse" />}>
+          <SearchInput />
+        </Suspense>
         <div className="flex items-center">
-          <CartBtn />
-          {/* <Link href="/#signin" className="p-1">
-            <Image
-              priority
-              src="/icons/user.svg"
-              height={100}
-              width={100}
-              alt="user"
-              className="max-w-[22px] max-h-[22px]"
-            />
-          </Link> */}
+          <Suspense fallback={<div className="w-6 h-6 mr-[14px]" />}>
+            <CartBtn />
+          </Suspense>
         </div>
       </div>
     </nav>
