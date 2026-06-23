@@ -66,7 +66,7 @@ const Header = ({ data }: { data: Product }) => {
         </div>
 
         {/* Description */}
-        <p className="text-sm sm:text-base text-black/60 mb-5">
+        <p className="text-sm sm:text-base text-white/60 mb-5">
           {data.description ||
             "This product is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style."}
         </p>
@@ -77,7 +77,7 @@ const Header = ({ data }: { data: Product }) => {
         {variants.length > 0 && (
           <>
             <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-black/60 mb-3">
+              <span className="text-sm sm:text-base text-white/60 mb-3">
                 Select Color
               </span>
               <div className="flex items-center flex-wrap gap-3">
@@ -110,7 +110,7 @@ const Header = ({ data }: { data: Product }) => {
         {sizes.length > 0 && (
           <>
             <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-black/60 mb-4">
+              <span className="text-sm sm:text-base text-white/60 mb-4">
                 Choose Size
               </span>
               <div className="flex items-center flex-wrap gap-3">

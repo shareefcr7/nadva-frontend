@@ -6,60 +6,27 @@ import { cn } from "@/lib/utils";
 const footerLinksData: FooterLinks[] = [
   {
     id: 1,
-    title: "company",
+    title: "contact details",
     children: [
       {
         id: 11,
-        label: "about",
-        url: "#",
+        label: "Email: Shameenaharis1272@gmail.com",
+        url: "mailto:Shameenaharis1272@gmail.com",
       },
       {
         id: 12,
-        label: "features",
-        url: "#",
-      },
-      {
-        id: 13,
-        label: "works",
-        url: "#",
+        label: "Contact Number: 9562321272",
+        url: "tel:9562321272",
       },
     ],
   },
-
-  {
-    id: 3,
-    title: "faq",
-    children: [
-      {
-        id: 31,
-        label: "account",
-        url: "#",
-      },
-      {
-        id: 32,
-        label: "manage deliveries",
-        url: "#",
-      },
-      {
-        id: 33,
-        label: "orders",
-        url: "#",
-      },
-      {
-        id: 34,
-        label: "payments",
-        url: "#",
-      },
-    ],
-  },
-
 ];
 
 const LinksSection = () => {
   return (
     <>
       {footerLinksData.map((item) => (
-        <section className="flex flex-col mt-5" key={item.id}>
+        <section className="flex flex-col mt-5 col-span-2 col-start-1 items-center text-center sm:col-start-2 sm:col-span-2" key={item.id}>
           <h3 className="font-medium text-sm md:text-base uppercase tracking-widest mb-6">
             {item.title}
           </h3>
@@ -68,8 +35,8 @@ const LinksSection = () => {
               href={link.url}
               key={link.id}
               className={cn([
-                link.id !== 41 && link.id !== 43 && "capitalize",
-                "text-black/60 text-sm md:text-base mb-4 w-fit",
+                !link.url.startsWith("mailto:") && !link.url.startsWith("tel:") && "capitalize",
+                "text-muted-foreground hover:text-primary transition-all text-sm md:text-base mb-4 w-fit break-all text-center",
               ])}
             >
               {link.label}

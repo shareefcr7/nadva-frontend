@@ -75,14 +75,14 @@ const CategoriesSection = () => {
                     type="checkbox"
                     checked={selectedCategories.includes(cat.name)}
                     onChange={() => dispatch(toggleCategory(cat.name))}
-                    className="w-4 h-4 rounded border-black/30 cursor-pointer"
+                    className="w-4 h-4 rounded border-white/30 cursor-pointer"
                   />
-                  <span className="text-sm text-black/60">{cat.name}</span>
+                  <span className="text-sm text-white/60">{cat.name}</span>
                 </label>
               ))}
             </div>
           ) : (
-            <div className="text-sm text-black/60">No categories found</div>
+            <div className="text-sm text-white/60">No categories found</div>
           )}
         </AccordionContent>
       </AccordionItem>

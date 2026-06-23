@@ -156,7 +156,7 @@ export default function HeroBanner() {
           height: 92vh;
           min-height: 560px;
           max-height: 900px;
-          background: #fff;
+          background: #070707;
           overflow: hidden;
           cursor: default;
         }
@@ -186,39 +186,28 @@ export default function HeroBanner() {
         }
 
         /* ── overlay ── */
-        // .slide-overlay {
-        //   position: absolute;
-        //   inset: 0;
-        //   z-index: 3;
-        //   background: linear-gradient(
-        //     105deg,
-        //     rgba(255,255,255,0.78) 0%,
-        //     rgba(255,255,255,0.44) 50%,
-        //     rgba(255,255,255,0.08) 100%
-        //   );
-        // }
         .slide-overlay {
-  background: linear-gradient(
-    105deg,
-    rgba(255,255,255,0.2) 0%,
-    rgba(255,255,255,0.1) 50%,
-    rgba(255,255,255,0.05) 100%
-  );
-}
+          background: linear-gradient(
+            105deg,
+            rgba(0,0,0,0.65) 0%,
+            rgba(0,0,0,0.45) 50%,
+            rgba(0,0,0,0.2) 100%
+          );
+        }
         .slide-overlay.center {
           background: linear-gradient(
             180deg,
-            rgba(255,255,255,0.22) 0%,
-            rgba(255,255,255,0.70) 38%,
-            rgba(255,255,255,0.22) 100%
+            rgba(0,0,0,0.3) 0%,
+            rgba(0,0,0,0.5) 38%,
+            rgba(0,0,0,0.3) 100%
           );
         }
         .slide-overlay.right {
           background: linear-gradient(
             255deg,
-            rgba(255,255,255,0.80) 0%,
-            rgba(255,255,255,0.44) 50%,
-            rgba(255,255,255,0.06) 100%
+            rgba(0,0,0,0.65) 0%,
+            rgba(0,0,0,0.45) 50%,
+            rgba(0,0,0,0.2) 100%
           );
         }
 
@@ -247,8 +236,8 @@ export default function HeroBanner() {
           font-weight: 500;
           letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: #111;
-          border: 1px solid #111;
+          color: #D4AF37;
+          border: 1px solid #D4AF37;
           padding: 5px 14px;
           margin-bottom: 22px;
           opacity: 0;
@@ -263,7 +252,7 @@ export default function HeroBanner() {
           font-weight: 300;
           line-height: 1.05;
           letter-spacing: -0.01em;
-          color: #0a0a0a;
+          color: #D4AF37;
           white-space: pre-line;
           margin: 0 0 20px;
           opacity: 0;
@@ -276,7 +265,7 @@ export default function HeroBanner() {
           font-size: 0.95rem;
           font-weight: 300;
           line-height: 1.65;
-          color: #444;
+          color: #ccc;
           max-width: 400px;
           margin-bottom: 36px;
           opacity: 0;
@@ -297,8 +286,8 @@ export default function HeroBanner() {
         .banner-content.center .btn-row { justify-content: center; }
 
         .btn-primary {
-          background: #0a0a0a;
-          color: #fff;
+          background: #D4AF37;
+          color: #070707;
           font-family: 'DM Sans', sans-serif;
           font-size: 0.8rem;
           font-weight: 500;
@@ -309,36 +298,27 @@ export default function HeroBanner() {
           cursor: pointer;
           transition: background 0.25s, transform 0.2s;
         }
-        .btn-primary:hover { background: #333; transform: translateY(-2px); }
+        .btn-primary:hover { background: #b8932c; transform: translateY(-2px); }
 
         .btn-ghost {
           background: transparent;
-          color: #0a0a0a;
+          color: #D4AF37;
           font-family: 'DM Sans', sans-serif;
           font-size: 0.8rem;
           font-weight: 500;
           letter-spacing: 0.1em;
           text-transform: uppercase;
           padding: 14px 34px;
-          border: 1px solid #0a0a0a;
+          border: 1px solid #D4AF37;
           cursor: pointer;
           transition: background 0.25s, color 0.25s, transform 0.2s;
         }
-        .btn-ghost:hover { background: #0a0a0a; color: #fff; transform: translateY(-2px); }
+        .btn-ghost:hover { background: #D4AF37; color: #070707; transform: translateY(-2px); }
 
         /* ── progress bar ── */
-        // .progress-bar {
-        //   position: absolute;
-        //   bottom: 0;
-        //   left: 0;
-        //   height: 2px;
-        //   background: #0a0a0a;
-        //   z-index: 10;
-        //   animation: progress 5s linear;
-        // }
         .progress-bar {
-  display: none;
-}
+          display: none;
+        }
         @keyframes progress {
           from { width: 0; }
           to   { width: 100%; }
@@ -350,8 +330,8 @@ export default function HeroBanner() {
           top: 50%;
           transform: translateY(-50%);
           z-index: 8;
-          background: rgba(255,255,255,0.88);
-          border: 1px solid #ddd;
+          background: rgba(20,20,20,0.8);
+          border: 1px solid #333;
           width: 48px;
           height: 48px;
           display: flex;
@@ -362,12 +342,12 @@ export default function HeroBanner() {
           backdrop-filter: blur(6px);
         }
         .arrow-btn:hover {
-          background: #0a0a0a;
-          border-color: #0a0a0a;
+          background: #D4AF37;
+          border-color: #D4AF37;
           transform: translateY(-50%) scale(1.08);
         }
-        .arrow-btn:hover svg { stroke: #fff; }
-        .arrow-btn svg { stroke: #0a0a0a; transition: stroke 0.2s; }
+        .arrow-btn:hover svg { stroke: #070707; }
+        .arrow-btn svg { stroke: #D4AF37; transition: stroke 0.2s; }
         .arrow-left  { left: 28px; }
         .arrow-right { right: 28px; }
 
@@ -386,14 +366,14 @@ export default function HeroBanner() {
           width: 7px;
           height: 7px;
           border-radius: 50%;
-          border: 1px solid #0a0a0a;
+          border: 1px solid #D4AF37;
           background: transparent;
           cursor: pointer;
           padding: 0;
           transition: background 0.25s, transform 0.2s;
         }
         .dot.active {
-          background: #0a0a0a;
+          background: #D4AF37;
           transform: scale(1.3);
         }
 
@@ -405,9 +385,9 @@ export default function HeroBanner() {
           z-index: 8;
           font-size: 0.72rem;
           letter-spacing: 0.12em;
-          color: #888;
+          color: #666;
         }
-        .slide-counter span { color: #0a0a0a; font-weight: 500; }
+        .slide-counter span { color: #D4AF37; font-weight: 500; }
 
         @keyframes fadeUp {
           to { opacity: 1; transform: translateY(0); }
@@ -418,7 +398,7 @@ export default function HeroBanner() {
           .banner-content { padding: 0 5vw; }
           .banner-content.right { justify-content: flex-start; }
           .slide-overlay.right {
-            background: linear-gradient(180deg,rgba(255,255,255,0.15) 0%,rgba(255,255,255,0.72) 55%,rgba(255,255,255,0.12) 100%);
+            background: linear-gradient(180deg,rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.6) 55%,rgba(0,0,0,0.2) 100%);
           }
         }
       `}</style>

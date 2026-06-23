@@ -174,7 +174,7 @@ const ShopProductsList = () => {
     <div className="flex flex-col w-full space-y-5">
       {/* Active filter labels */}
       {(search || categories || minPrice || maxPrice) && (
-        <div className="text-sm text-black/60 space-y-1">
+        <div className="text-sm text-white/60 space-y-1">
           {search && <p>Results for: <span className="font-semibold text-black">"{search}"</span></p>}
           {categories && <p>Category: <span className="font-semibold text-black">{categories.split(",").join(", ")}</span></p>}
           {(minPrice || maxPrice) && (
@@ -196,7 +196,7 @@ const ShopProductsList = () => {
         </div>
       ) : (
         <div className="w-full text-center py-20">
-          <p className="text-black/60">
+          <p className="text-white/60">
             {search ? `No products found for "${search}".` : "Loading..."}
           </p>
         </div>
@@ -205,12 +205,12 @@ const ShopProductsList = () => {
       {/* Pagination */}
       {!loading && totalPages > 1 && (
         <>
-          <hr className="border-t-black/10" />
+          <hr className="border-t-white/10" />
           <Pagination className="justify-between">
             <PaginationPrevious
               href="#"
               onClick={(e) => { e.preventDefault(); currentPage > 1 && setCurrentPage(p => p - 1); }}
-              className={currentPage === 1 ? "opacity-50 cursor-not-allowed" : "border border-black/10"}
+              className={currentPage === 1 ? "opacity-50 cursor-not-allowed" : "border border-white/10"}
             />
             <PaginationContent>
               {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => i + 1).map((page) => (
@@ -219,7 +219,7 @@ const ShopProductsList = () => {
                     href="#"
                     onClick={(e) => { e.preventDefault(); setCurrentPage(page); }}
                     isActive={currentPage === page}
-                    className="text-black/50 font-medium text-sm"
+                    className="text-white/50 font-medium text-sm"
                   >
                     {page}
                   </PaginationLink>
@@ -227,14 +227,14 @@ const ShopProductsList = () => {
               ))}
               {totalPages > 5 && (
                 <PaginationItem>
-                  <PaginationEllipsis className="text-black/50 font-medium text-sm" />
+                  <PaginationEllipsis className="text-white/50 font-medium text-sm" />
                 </PaginationItem>
               )}
             </PaginationContent>
             <PaginationNext
               href="#"
               onClick={(e) => { e.preventDefault(); currentPage < totalPages && setCurrentPage(p => p + 1); }}
-              className={currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "border border-black/10"}
+              className={currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "border border-white/10"}
             />
           </Pagination>
         </>

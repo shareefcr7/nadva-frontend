@@ -18,7 +18,7 @@ const NewsLetterSection = () => {
       </p>
       <div className="flex items-center">
         <div className="flex flex-col w-full max-w-[349px] mx-auto">
-          <InputGroup className="flex bg-white mb-[14px]">
+          <InputGroup className="flex bg-background mb-[14px]">
             <InputGroup.Text>
               <Image
                 priority
@@ -33,12 +33,12 @@ const NewsLetterSection = () => {
               type="email"
               name="email"
               placeholder="Enter your email address"
-              className="bg-transparent placeholder:text-black/40 placeholder:text-sm sm:placeholder:text-base"
+              className="bg-transparent placeholder:text-muted-foreground placeholder:text-sm sm:placeholder:text-base"
             />
           </InputGroup>
           <Button
             variant="secondary"
-            className="text-sm sm:text-base font-medium bg-white h-12 rounded-full px-4 py-3"
+            className="text-sm sm:text-base font-medium bg-background hover:bg-background/80 transition-all text-foreground h-12 rounded-full px-4 py-3"
             aria-label="Subscribe to Newsletter"
             type="button"
           >

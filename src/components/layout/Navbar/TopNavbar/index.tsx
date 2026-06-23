@@ -2,22 +2,27 @@ import { cn } from "@/lib/utils";
 import { integralCF } from "@/styles/fonts";
 import Link from "next/link";
 import React, { Suspense } from "react";
+import Image from "next/image";
 import CartBtn from "./CartBtn";
 import SearchInput from "../SearchInput";
 
 const TopNavbar = () => {
   return (
-    <nav className="sticky top-0 bg-white z-20">
+    <nav className="sticky top-0 bg-background border-b border-border z-20">
       <div className="flex relative max-w-frame mx-auto items-center justify-between md:justify-start py-5 md:py-6 px-4 xl:px-0">
         <div className="flex items-center">
           <Link
             href="/"
-            className={cn([
-              integralCF.className,
-              "text-2xl lg:text-[32px] mb-2 mr-3 lg:mr-10",
-            ])}
+            className="flex items-center mr-3 lg:mr-10"
           >
-            Auravault
+            <Image
+              src="/images/logo.png"
+              alt="Mas Fashion World Logo"
+              width={80}
+              height={80}
+              className="rounded-full"
+              priority
+            />
           </Link>
         </div>
         <Suspense fallback={<div className="w-full md:mr-3 lg:mr-10 h-10 bg-[#F0F0F0] rounded-full animate-pulse" />}>

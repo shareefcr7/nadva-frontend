@@ -121,7 +121,7 @@ const SearchInput = () => {
       {showSuggestions && (
         <div
           ref={suggestionsRef}
-          className="absolute top-full left-0 right-0 mt-1 bg-white border border-black/10 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
+          className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
         >
           {isLoading ? (
             <div className="p-4 space-y-3">
@@ -148,7 +148,7 @@ const SearchInput = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-black truncate">{p.title}</p>
-                    <p className="text-xs text-black/60">{p.category}</p>
+                    <p className="text-xs text-white/60">{p.category}</p>
                     <p className="text-sm font-semibold text-black mt-0.5">₹{p.price}</p>
                   </div>
                 </button>
@@ -161,7 +161,7 @@ const SearchInput = () => {
               </button>
             </div>
           ) : (
-            <div className="p-4 text-center text-black/60 text-sm">No products found</div>
+            <div className="p-4 text-center text-white/60 text-sm">No products found</div>
           )}
         </div>
       )}
