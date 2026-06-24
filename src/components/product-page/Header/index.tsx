@@ -8,6 +8,74 @@ import { cn } from "@/lib/utils";
 import AddToCardSection from "./AddToCardSection";
 import { IoMdCheckmark } from "react-icons/io";
 
+const colorMap: Record<string, string> = {
+  "sage green": "#8a9a86",
+  "sage": "#8a9a86",
+  "coffee brown": "#4b3621",
+  "coffee": "#4b3621",
+  "mauve pink": "#e0b0ff",
+  "mauve": "#e0b0ff",
+  "olive beige": "#a89f91",
+  "olive": "#808000",
+  "beige": "#f5f5dc",
+  "navy blue": "#000080",
+  "navy": "#000080",
+  "sky blue": "#87ceeb",
+  "mustard yellow": "#ffdb58",
+  "mustard": "#ffdb58",
+  "dusty pink": "#dcaebb",
+  "dusty rose": "#cca0ac",
+  "wine red": "#722f37",
+  "wine": "#722f37",
+  "burgundy": "#800020",
+  "charcoal grey": "#36454f",
+  "charcoal gray": "#36454f",
+  "charcoal": "#36454f",
+  "cream": "#fffdd0",
+  "khaki": "#c3b091",
+  "camel": "#c19a6b",
+  "rust": "#b7410e",
+  "terracotta": "#e2725b",
+  "teal": "#008080",
+  "lavender": "#e6e6fa",
+  "lilac": "#c8a2c8",
+  "peach": "#ffdab9",
+  "coral": "#ff7f50",
+  "mint green": "#98ff98",
+  "mint": "#98ff98",
+  "apricot": "#fbceb1",
+  "emerald green": "#50c878",
+  "emerald": "#50c878",
+  "forest green": "#228b22",
+  "olive green": "#bab86c",
+  "maroon": "#800000",
+  "bronze": "#cd7f32",
+  "copper": "#b87333",
+  "tan": "#d2b48c",
+};
+
+const getValidColor = (colorName: string): string => {
+  if (!colorName) return "#ccc";
+  const clean = colorName.trim().toLowerCase().replace(/[-_]/g, " ").replace(/\s+/g, " ");
+  if (/^#([0-9a-f]{3}){1,2}$/i.test(clean)) return colorName;
+  if (colorMap[clean]) return colorMap[clean];
+  if (clean.includes("red")) return "#ff0000";
+  if (clean.includes("blue")) return "#0000ff";
+  if (clean.includes("green")) return "#008000";
+  if (clean.includes("yellow")) return "#ffff00";
+  if (clean.includes("pink")) return "#ffc0cb";
+  if (clean.includes("brown")) return "#a52a2a";
+  if (clean.includes("orange")) return "#ffa500";
+  if (clean.includes("purple")) return "#800080";
+  if (clean.includes("grey") || clean.includes("gray")) return "#808080";
+  if (clean.includes("black")) return "#000000";
+  if (clean.includes("white")) return "#ffffff";
+  if (clean.includes("gold")) return "#ffd700";
+  if (clean.includes("silver")) return "#c0c0c0";
+  if (clean.includes("beige")) return "#f5f5dc";
+  return colorName;
+};
+
 const Header = ({ data }: { data: Product }) => {
   const variants = data.variants ?? [];
   const defaultVariant = variants.find((v) => v.isDefault) || variants[0] || null;
@@ -77,29 +145,33 @@ const Header = ({ data }: { data: Product }) => {
         {variants.length > 0 && (
           <>
             <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-white/60 mb-3">
-                Select Color
+              <span className="text-sm sm:text-base text-white/60 mb-3 capitalize">
+                Select Color: <span className="text-white font-medium">{selectedVariant?.color}</span>
               </span>
               <div className="flex items-center flex-wrap gap-3">
-                {variants.map((v) => (
-                  <button
-                    key={v._id}
-                    type="button"
-                    title={v.color}
-                    onClick={() => handleVariantSelect(v)}
-                    className={cn(
-                      "w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center transition-all",
-                      selectedVariant?._id === v._id
-                        ? "border-black scale-110"
-                        : "border-transparent"
-                    )}
-                    style={{ backgroundColor: v.color || "#ccc" }}
-                  >
-                    {selectedVariant?._id === v._id && (
-                      <IoMdCheckmark className="text-white text-base drop-shadow" />
-                    )}
-                  </button>
-                ))}
+                {variants.map((v) => {
+                  const resolvedColor = getValidColor(v.color);
+                  const isLightColor = resolvedColor.toLowerCase() === "#ffffff" || resolvedColor.toLowerCase() === "white" || resolvedColor.toLowerCase() === "#fff";
+                  return (
+                    <button
+                      key={v._id}
+                      type="button"
+                      title={v.color}
+                      onClick={() => handleVariantSelect(v)}
+                      className={cn(
+                        "w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center transition-all hover:opacity-75",
+                        selectedVariant?._id === v._id
+                          ? "border-white scale-110"
+                          : "border-white/30"
+                      )}
+                      style={{ backgroundColor: resolvedColor }}
+                    >
+                      {selectedVariant?._id === v._id && (
+                        <IoMdCheckmark className={cn("text-base drop-shadow", isLightColor ? "text-black" : "text-white")} />
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
             <hr className="h-[1px] border-t-black/10 mb-5" />
