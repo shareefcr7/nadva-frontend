@@ -36,8 +36,15 @@ const ResTopNavbar = ({ data }: { data: NavMenu }) => {
         <SheetHeader className="mb-10">
           <SheetTitle asChild>
             <SheetClose asChild>
-              <Link href="/" className={cn([integralCF.className, "text-2xl"])}>
-                Easy com
+              <Link href="/" className="flex items-center gap-2">
+                <Image
+                  src="/images/logo.png"
+                  alt="VARUNA Logo"
+                  width={60}
+                  height={60}
+                  className="rounded-lg object-contain"
+                  priority
+                />
               </Link>
             </SheetClose>
           </SheetTitle>

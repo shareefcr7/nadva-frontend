@@ -69,11 +69,10 @@ const Footer = () => {
                   "text-[28px] lg:text-[32px] mb-6 text-primary",
                 ])}
               >
-                Mas Fashion World
+                VARUNA RESORTS & EVENTS
               </h1>
               <p className="text-muted-foreground text-sm mb-9">
-                We have clothes that suits your style and which you’re proud to
-                wear. From women to men.
+                Premium destination for event management, weddings, corporate events, and exceptional hospitality services.
               </p>
               <div className="flex items-center">
                 {socialsData.map((social) => (

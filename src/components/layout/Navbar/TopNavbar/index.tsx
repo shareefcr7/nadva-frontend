@@ -8,19 +8,19 @@ import SearchInput from "../SearchInput";
 
 const TopNavbar = () => {
   return (
-    <nav className="sticky top-0 bg-background border-b border-border z-20">
+    <nav className="sticky top-0 bg-secondary border-b border-border z-20">
       <div className="flex relative max-w-frame mx-auto items-center justify-between md:justify-start py-5 md:py-6 px-4 xl:px-0">
         <div className="flex items-center">
           <Link
             href="/"
-            className="flex items-center mr-3 lg:mr-10"
+            className="flex items-center mr-3 lg:mr-10 gap-2"
           >
             <Image
               src="/images/logo.png"
-              alt="Mas Fashion World Logo"
+              alt="VARUNA Logo"
               width={80}
               height={80}
-              className="rounded-full"
+              className="rounded-lg object-contain"
               priority
             />
           </Link>
