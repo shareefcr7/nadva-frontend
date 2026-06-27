@@ -55,7 +55,7 @@ export default function RootLayout({
           {/* Navbar */}
           <TopNavbar />
           
-          {/* Main Content - Grows to fill available space */}
+          {/* Main Content */}
           <main className="flex-1">
             {children}
           </main>

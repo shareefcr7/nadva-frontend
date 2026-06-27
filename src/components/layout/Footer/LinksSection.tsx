@@ -36,7 +36,7 @@ const LinksSection = () => {
               key={link.id}
               className={cn([
                 !link.url.startsWith("mailto:") && !link.url.startsWith("tel:") && "capitalize",
-                "text-muted-foreground hover:text-primary transition-all text-sm md:text-base mb-4 w-fit break-all text-center",
+                "text-black/60 hover:text-black transition-all text-sm md:text-base mb-4 w-fit break-all text-center",
               ])}
             >
               {link.label}

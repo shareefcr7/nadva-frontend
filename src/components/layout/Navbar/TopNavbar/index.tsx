@@ -16,7 +16,7 @@ const TopNavbar = () => {
             className="flex items-center mr-3 lg:mr-10 gap-2"
           >
             <Image
-              src="/images/logo.png"
+              src="/images/logo.jpg"
               alt="VARUNA Logo"
               width={80}
               height={80}

@@ -38,7 +38,7 @@ const ResTopNavbar = ({ data }: { data: NavMenu }) => {
             <SheetClose asChild>
               <Link href="/" className="flex items-center gap-2">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/logo.jpg"
                   alt="VARUNA Logo"
                   width={60}
                   height={60}
