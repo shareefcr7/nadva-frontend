@@ -40,7 +40,7 @@ async function getProduct(id: string): Promise<Product | null> {
       id: p._id,
       title: p.name,
       category: p.category?.name || "General",
-      description: p.description || "",
+      description: p.description || "No product description available.",
       srcUrl: defaultVariant?.images?.[0] || "/images/pic1.png",
       gallery: defaultVariant?.images || [],
       price: defaultVariant?.price || 0,

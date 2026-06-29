@@ -39,7 +39,7 @@ const ResTopNavbar = ({ data }: { data: NavMenu }) => {
               <Link href="/" className="flex items-center gap-2">
                 <Image
                   src="/images/logo.jpg"
-                  alt="VARUNA Logo"
+                  alt="Nadav Resorts & Events Logo"
                   width={60}
                   height={60}
                   className="rounded-lg object-contain"

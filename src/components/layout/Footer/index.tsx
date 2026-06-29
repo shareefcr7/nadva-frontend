@@ -65,7 +65,7 @@ const Footer = () => {
               <Link href="/">
                 <Image
                   src="/images/logo.jpg"
-                  alt="VARUNA Logo"
+                  alt="Nadav Resorts & Events Logo"
                   width={80}
                   height={80}
                   className="rounded-lg object-contain mb-4 bg-white"
@@ -78,7 +78,7 @@ const Footer = () => {
                   "text-xl lg:text-2xl mb-4 text-primary",
                 ])}
               >
-                VARUNA RESORTS & EVENTS
+                Nadav Resorts & Events
               </h1>
               <p className="text-black/60 text-sm mb-9">
                 Premium destination for event management, weddings, corporate events, and exceptional hospitality services.
