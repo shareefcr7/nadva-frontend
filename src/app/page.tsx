@@ -11,22 +11,28 @@ async function getProducts(): Promise<Product[]> {
   try {
     const res = await fetch(`${api}/product`, {
       next: { revalidate: 60 },
-    });    if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return [];
+    });
+    if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return [];
     const data = await res.json();
     if (!data.products) return [];
 
     return data.products.map((p: any) => {
       const defaultVariant =
         p.variants?.find((v: any) => v.isDefault) || p.variants?.[0];
+      const prices = p.variants?.map((v: any) => v.price).filter((pr: any) => typeof pr === 'number' && !isNaN(pr)) || [];
+      const startingPrice = prices.length > 0 ? Math.min(...prices) : (defaultVariant?.price || 0);
+
       return {
         id: p._id,
         title: p.name,
         category: p.category?.name || "General",
+        description: p.description || "No description available.",
         srcUrl: defaultVariant?.images?.[0] || "/images/pic1.png",
         gallery: defaultVariant?.images || [],
-        price: defaultVariant?.price || 0,
+        price: startingPrice,
         discount: { amount: 0, percentage: 0 },
         rating: 4,
+        amenities: p.amenities || []
       };
     });
   } catch (error) {

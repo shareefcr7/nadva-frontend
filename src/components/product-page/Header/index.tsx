@@ -81,20 +81,15 @@ const Header = ({ data }: { data: Product }) => {
   const defaultVariant = variants.find((v) => v.isDefault) || variants[0] || null;
 
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(defaultVariant);
-  const [selectedSize, setSelectedSize] = useState<SizeOption | null>(
-    defaultVariant?.sizesArray?.[0] || null
-  );
 
   const displayPrice = selectedVariant?.price ?? data.price;
   const displayImages = selectedVariant?.images?.length
     ? selectedVariant.images
     : data.gallery ?? [];
   const displaySrc = displayImages[0] || data.srcUrl;
-  const sizes = selectedVariant?.sizesArray ?? [];
 
   const handleVariantSelect = (v: ProductVariant) => {
     setSelectedVariant(v);
-    setSelectedSize(v.sizesArray?.[0] || null);
   };
 
   const displayProduct: Product = {
@@ -104,10 +99,14 @@ const Header = ({ data }: { data: Product }) => {
     price: displayPrice,
   };
 
-  // attributes passed to cart: [color, size]
+  // attributes passed to cart: [variant name, duration, capacity, max guests, room type, service type]
   const cartAttributes = [
-    selectedVariant?.color || "",
-    selectedSize?.size || "",
+    selectedVariant?.color ? `Variant: ${selectedVariant.color}` : "",
+    selectedVariant?.duration ? `Duration: ${selectedVariant.duration}` : "",
+    selectedVariant?.capacity ? `Capacity: ${selectedVariant.capacity}` : "",
+    selectedVariant?.maxGuests ? `Max Guests: ${selectedVariant.maxGuests}` : "",
+    selectedVariant?.roomType ? `Room Type: ${selectedVariant.roomType}` : "",
+    selectedVariant?.serviceType ? `Service Type: ${selectedVariant.serviceType}` : "",
   ].filter(Boolean);
 
   return (
@@ -141,69 +140,100 @@ const Header = ({ data }: { data: Product }) => {
 
         <hr className="h-[1px] border-t-black/10 mb-5" />
 
-        {/* Color / Variant selection */}
+        {/* Amenities Section */}
+        {data.amenities && data.amenities.length > 0 && (
+          <div className="mb-5">
+            <span className="text-sm sm:text-base text-white/60 mb-3 block">
+              Amenities Included
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {data.amenities.map((amenity) => (
+                <span
+                  key={amenity}
+                  className="bg-[#1B5E20]/25 text-[#4CAF50] border border-[#1B5E20]/40 px-3 py-1.5 text-xs rounded-full font-medium"
+                >
+                  {amenity}
+                </span>
+              ))}
+            </div>
+            <hr className="h-[1px] border-t-black/10 mt-5 mb-5" />
+          </div>
+        )}
+
+        {/* Option / Variant selection */}
         {variants.length > 0 && (
           <>
             <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-white/60 mb-3 capitalize">
-                Select Color: <span className="text-white font-medium">{selectedVariant?.color}</span>
+              <span className="text-sm sm:text-base text-white/60 mb-3">
+                Select Option: <span className="text-[#FF8C00] font-medium">{selectedVariant?.color}</span>
               </span>
               <div className="flex items-center flex-wrap gap-3">
-                {variants.map((v) => {
-                  const resolvedColor = getValidColor(v.color);
-                  const isLightColor = resolvedColor.toLowerCase() === "#ffffff" || resolvedColor.toLowerCase() === "white" || resolvedColor.toLowerCase() === "#fff";
-                  return (
-                    <button
-                      key={v._id}
-                      type="button"
-                      title={v.color}
-                      onClick={() => handleVariantSelect(v)}
-                      className={cn(
-                        "w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center transition-all hover:opacity-75",
-                        selectedVariant?._id === v._id
-                          ? "border-white scale-110"
-                          : "border-white/30"
-                      )}
-                      style={{ backgroundColor: resolvedColor }}
-                    >
-                      {selectedVariant?._id === v._id && (
-                        <IoMdCheckmark className={cn("text-base drop-shadow", isLightColor ? "text-black" : "text-white")} />
-                      )}
-                    </button>
-                  );
-                })}
+                {variants.map((v) => (
+                  <button
+                    key={v._id}
+                    type="button"
+                    onClick={() => handleVariantSelect(v)}
+                    className={cn(
+                      "px-5 py-2.5 text-sm rounded-full font-medium transition-all border",
+                      selectedVariant?._id === v._id
+                        ? "bg-[#FF8C00] text-white border-[#FF8C00] scale-105"
+                        : "bg-white/10 text-white border-white/20 hover:bg-white/20"
+                    )}
+                  >
+                    {v.color}
+                  </button>
+                ))}
               </div>
             </div>
             <hr className="h-[1px] border-t-black/10 mb-5" />
           </>
         )}
 
-        {/* Size selection */}
-        {sizes.length > 0 && (
+        {/* Selected Variant Details & Attributes */}
+        {selectedVariant && (
           <>
-            <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-white/60 mb-4">
-                Choose Size
-              </span>
-              <div className="flex items-center flex-wrap gap-3">
-                {sizes.map((s) => (
-                  <button
-                    key={s._id}
-                    type="button"
-                    onClick={() => setSelectedSize(s)}
-                    className={cn(
-                      "bg-[#F0F0F0] px-6 py-3 text-sm rounded-full font-medium transition-all",
-                      selectedSize?._id === s._id
-                        ? "bg-black text-white"
-                        : "text-black hover:bg-black/10"
-                    )}
-                  >
-                    {s.size.toUpperCase()}
-                  </button>
-                ))}
+            {selectedVariant.description && (
+              <div className="mb-5 bg-white/5 p-4 rounded-xl border border-white/10 text-left">
+                <h4 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-1">Variant Details</h4>
+                <p className="text-sm text-white/80">{selectedVariant.description}</p>
               </div>
-            </div>
-            <hr className="hidden md:block h-[1px] border-t-black/10 mb-5" />
+            )}
+
+            {(selectedVariant.duration || selectedVariant.capacity || selectedVariant.maxGuests || selectedVariant.roomType || selectedVariant.serviceType) && (
+              <div className="grid grid-cols-2 gap-3 mb-5 text-left">
+                {selectedVariant.duration && (
+                  <div className="bg-white/5 px-4 py-2.5 rounded-xl border border-white/10">
+                    <span className="text-xs text-white/50 block">Duration</span>
+                    <span className="text-sm font-semibold text-white">{selectedVariant.duration}</span>
+                  </div>
+                )}
+                {selectedVariant.capacity && (
+                  <div className="bg-white/5 px-4 py-2.5 rounded-xl border border-white/10">
+                    <span className="text-xs text-white/50 block">Capacity</span>
+                    <span className="text-sm font-semibold text-white">{selectedVariant.capacity}</span>
+                  </div>
+                )}
+                {selectedVariant.maxGuests && (
+                  <div className="bg-white/5 px-4 py-2.5 rounded-xl border border-white/10">
+                    <span className="text-xs text-white/50 block">Max Guests</span>
+                    <span className="text-sm font-semibold text-white">{selectedVariant.maxGuests}</span>
+                  </div>
+                )}
+                {selectedVariant.roomType && (
+                  <div className="bg-white/5 px-4 py-2.5 rounded-xl border border-white/10">
+                    <span className="text-xs text-white/50 block">Room Type</span>
+                    <span className="text-sm font-semibold text-white">{selectedVariant.roomType}</span>
+                  </div>
+                )}
+                {selectedVariant.serviceType && (
+                  <div className="col-span-2 bg-white/5 px-4 py-2.5 rounded-xl border border-white/10">
+                    <span className="text-xs text-white/50 block">Service Type</span>
+                    <span className="text-sm font-semibold text-white">{selectedVariant.serviceType}</span>
+                  </div>
+                )}
+              </div>
+            )}
+            <hr className="h-[1px] border-t-black/10 mb-5" />
           </>
         )}
 

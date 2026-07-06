@@ -127,17 +127,22 @@ const ShopProductsList = () => {
         const data = await res.json();
 
         if (data.products && Array.isArray(data.products)) {
-          const mapped: Product[] = data.products.map((p: ApiProduct) => {
-            const v = p.variants?.find((v) => v.isDefault) || p.variants?.[0];
+          const mapped: Product[] = data.products.map((p: any) => {
+            const v = p.variants?.find((v: any) => v.isDefault) || p.variants?.[0];
+            const prices = p.variants?.map((v: any) => v.price).filter((pr: any) => typeof pr === 'number' && !isNaN(pr)) || [];
+            const startingPrice = prices.length > 0 ? Math.min(...prices) : (v?.price || 0);
+
             return {
               id: p._id,
               title: p.name,
               category: p.category?.name || "General",
+              description: p.description || "No description available.",
               srcUrl: v?.images?.[0] || "/images/pic1.png",
               gallery: v?.images || [],
-              price: v?.price || 0,
+              price: startingPrice,
               discount: { amount: 0, percentage: 0 },
               rating: 4,
+              amenities: p.amenities || []
             };
           });
 

@@ -11,12 +11,18 @@ export type SizeOption = {
 
 export type ProductVariant = {
   _id: string;
-  color: string;
+  color: string; // Used as Variant Name
   sizesArray: SizeOption[];
   price: number;
   stock: number;
   images: string[];
   isDefault: boolean;
+  description?: string;
+  duration?: string;
+  capacity?: string;
+  maxGuests?: string;
+  roomType?: string;
+  serviceType?: string;
 };
 
 export type Product = {
@@ -30,4 +36,5 @@ export type Product = {
   discount: Discount;
   rating: number;
   variants?: ProductVariant[];
+  amenities?: string[];
 };
