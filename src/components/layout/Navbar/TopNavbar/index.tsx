@@ -3,7 +3,6 @@ import { integralCF } from "@/styles/fonts";
 import Link from "next/link";
 import React, { Suspense } from "react";
 import Image from "next/image";
-import CartBtn from "./CartBtn";
 import SearchInput from "../SearchInput";
 
 const TopNavbar = () => {
@@ -28,11 +27,7 @@ const TopNavbar = () => {
         <Suspense fallback={<div className="w-full md:mr-3 lg:mr-10 h-10 bg-[#F0F0F0] rounded-full animate-pulse" />}>
           <SearchInput />
         </Suspense>
-        <div className="flex items-center">
-          <Suspense fallback={<div className="w-6 h-6 mr-[14px]" />}>
-            <CartBtn />
-          </Suspense>
-        </div>
+
       </div>
     </nav>
   );
