@@ -116,7 +116,10 @@ const SearchInput = () => {
         <InputGroup className="flex bg-[#F0F0F0]">
           <InputGroup.Text>
             <button type="submit" aria-label="Search" className="flex items-center justify-center focus:outline-none hover:opacity-70 transition-opacity">
-              <Image priority src="/icons/search.svg" height={20} width={20} alt="search" className="min-w-5 min-h-5" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="min-w-5 min-h-5 text-black/40">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
             </button>
           </InputGroup.Text>
           <InputGroup.Input
