@@ -20,10 +20,17 @@ async function getProduct(id: string): Promise<Product | null> {
 
     const variants: ProductVariant[] = (p.variants ?? []).map((v: any) => ({
       _id: v._id || "",
-      color: v.name || v.color || "", // fallback compatibility
-      sizesArray: [],
+      color: v.color || v.name || "",
+      sizesArray: Array.isArray(v.sizes)
+        ? v.sizes.map((s: any) => ({
+            _id: s._id || "",
+            size: s.size || "",
+            stock: s.stock ?? 0,
+            price: s.price ?? 0,
+          }))
+        : [],
       price: v.price || 0,
-      stock: 0,
+      stock: v.stock || 0,
       images: Array.isArray(v.images) ? v.images : v.images ? [v.images] : [],
       isDefault: !!v.isDefault,
       description: v.description || "",

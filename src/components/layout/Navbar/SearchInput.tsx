@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import InputGroup from "@/components/ui/input-group";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type Suggestion = {
   id: string;
@@ -15,13 +15,22 @@ type Suggestion = {
 
 const SearchInput = () => {
   const router = useRouter();
-  const [query, setQuery] = useState("");
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search") || "";
+
+  const [query, setQuery] = useState(searchQuery);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestionsRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const api = process.env.NEXT_PUBLIC_API_URL;
+
+  // Sync state when URL search param changes (like going back or page refresh)
+  useEffect(() => {
+    setQuery(searchQuery);
+    setShowSuggestions(false);
+  }, [searchQuery]);
 
   useEffect(() => {
     if (!query.trim() || !api) {
@@ -57,7 +66,10 @@ const SearchInput = () => {
               };
             })
           );
-          setShowSuggestions(true);
+          // Only show suggestions if input is currently focused
+          if (document.activeElement === inputRef.current) {
+            setShowSuggestions(true);
+          }
         } else {
           setSuggestions([]);
         }
@@ -103,7 +115,9 @@ const SearchInput = () => {
       <form onSubmit={handleSearch}>
         <InputGroup className="flex bg-[#F0F0F0]">
           <InputGroup.Text>
-            <Image priority src="/icons/search.svg" height={20} width={20} alt="search" className="min-w-5 min-h-5" />
+            <button type="submit" aria-label="Search" className="flex items-center justify-center focus:outline-none hover:opacity-70 transition-opacity">
+              <Image priority src="/icons/search.svg" height={20} width={20} alt="search" className="min-w-5 min-h-5" />
+            </button>
           </InputGroup.Text>
           <InputGroup.Input
             ref={inputRef}
