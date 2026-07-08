@@ -21,7 +21,7 @@ const ProductCard = ({ data, priority = false }: ProductCardProps) => {
           fill
           sizes="(max-width: 768px) 50vw, 295px"
           className="object-cover group-hover:scale-110 transition-all duration-500"
-          alt={data.title}
+          alt={data.title || "Product"}
           priority={priority}
           loading={priority ? "eager" : "lazy"}
         />
@@ -37,7 +37,7 @@ const ProductCard = ({ data, priority = false }: ProductCardProps) => {
       </div>
       <div className="w-full">
         <span className="w-full text-center block bg-[#FF8C00] text-white group-hover:bg-[#E67E00] font-semibold text-sm py-2.5 px-4 rounded-full transition-all duration-300">
-          Book Now
+          Enquiry Now
         </span>
       </div>
     </Link>

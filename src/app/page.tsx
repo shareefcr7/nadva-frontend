@@ -1,5 +1,6 @@
 import ProductListSec from "@/components/common/ProductListSec";
 import HeroBanner from "@/components/homepage/Header";
+import FacilitiesSection from "@/components/homepage/FacilitiesSection";
 import { Product } from "@/types/product.types";
 
 export const revalidate = 60;
@@ -41,13 +42,28 @@ async function getProducts(): Promise<Product[]> {
   }
 }
 
+async function getFacilities() {
+  if (!api) return [];
+  try {
+    const res = await fetch(`${api}/facility`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return [];
+    const data = await res.json();
+    return data.facilities ?? [];
+  } catch {
+    return [];
+  }
+}
+
 // Server component — no "use client", no useEffect, no client-side waterfall
 export default async function Home() {
-  const products = await getProducts();
+  const [products, facilities] = await Promise.all([getProducts(), getFacilities()]);
 
   return (
     <>
       <HeroBanner />
+      <FacilitiesSection facilities={facilities} />
       <main className="my-[50px] sm:my-[72px]">
         <ProductListSec
           title="Explore for More"

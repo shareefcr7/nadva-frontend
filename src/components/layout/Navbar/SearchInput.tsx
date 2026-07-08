@@ -123,7 +123,7 @@ const SearchInput = () => {
             ref={inputRef}
             type="search"
             name="search"
-            placeholder="Search for products..."
+            placeholder=""
             className="bg-transparent placeholder:text-black/40"
             value={query}
             onChange={(e) => setQuery(e.target.value)}

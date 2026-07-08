@@ -7,6 +7,7 @@ export type SizeOption = {
   _id: string;
   size: string;
   stock: number;
+  price?: number;
 };
 
 export type ProductVariant = {

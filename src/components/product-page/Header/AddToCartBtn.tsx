@@ -1,7 +1,5 @@
 "use client";
 
-import { addToCart } from "@/lib/features/carts/cartsSlice";
-import { useAppDispatch } from "@/lib/hooks/redux";
 import { Product } from "@/types/product.types";
 import React from "react";
 
@@ -11,29 +9,21 @@ type Props = {
 };
 
 const AddToCartBtn = ({ data, attributes = [] }: Props) => {
-  const dispatch = useAppDispatch();
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "9447105944";
+
+  const textMessage = `Hi, I'm interested in enquiring about:\n*${data.title}*\n${attributes.length > 0 ? `Details: ${attributes.join(", ")}\n` : ""}Price: ₹${data.price}`;
 
   return (
-    <button
-      type="button"
-      className="bg-black w-full ml-3 sm:ml-5 rounded-full h-11 md:h-[52px] text-sm sm:text-base text-white hover:bg-black/80 transition-all"
-      onClick={() =>
-        dispatch(
-          addToCart({
-            id: data.id as number,
-            name: data.title,
-            srcUrl: data.srcUrl,
-            price: data.price,
-            attributes,
-            discount: data.discount,
-            quantity: data.quantity,
-          })
-        )
-      }
+    <a
+      href={`https://wa.me/91${whatsappNumber}?text=${encodeURIComponent(textMessage)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-black w-full ml-3 sm:ml-5 rounded-full h-11 md:h-[52px] text-sm sm:text-base text-white hover:bg-black/80 transition-all flex items-center justify-center font-medium"
     >
-      Add to Cart
-    </button>
+      Enquiry Now
+    </a>
   );
 };
 
 export default AddToCartBtn;
+

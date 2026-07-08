@@ -134,7 +134,7 @@ const Header = ({ data }: { data: Product }) => {
         </div>
 
         {/* Description */}
-        <p className="text-sm sm:text-base text-white/60 mb-5">
+        <p className="text-sm sm:text-base text-black/60 mb-5">
           {data.description ||
             "This product is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style."}
         </p>
@@ -145,7 +145,7 @@ const Header = ({ data }: { data: Product }) => {
         {variants.length > 0 && (
           <>
             <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-white/60 mb-3">
+              <span className="text-sm sm:text-base text-black/60 mb-3">
                 Select Option: <span className="text-[#FF8C00] font-medium">{selectedVariant?.color}</span>
               </span>
               <div className="flex items-center flex-wrap gap-3">
@@ -158,7 +158,7 @@ const Header = ({ data }: { data: Product }) => {
                       "px-5 py-2.5 text-sm rounded-full font-medium transition-all border",
                       selectedVariant?._id === v._id
                         ? "bg-[#FF8C00] text-white border-[#FF8C00] scale-105"
-                        : "bg-white/10 text-white border-white/20 hover:bg-white/20"
+                        : "bg-black/5 text-black border-black/10 hover:bg-black/10"
                     )}
                   >
                     {v.color}
@@ -174,7 +174,7 @@ const Header = ({ data }: { data: Product }) => {
         {sizes.length > 0 && (
           <>  
             <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-white/60 mb-4">
+              <span className="text-sm sm:text-base text-black/60 mb-4">
                 Choose Quantity
               </span>
               <div className="flex items-center flex-wrap gap-3">
@@ -187,7 +187,7 @@ const Header = ({ data }: { data: Product }) => {
                       "px-6 py-3 text-sm rounded-full font-medium transition-all border",
                       selectedSize?._id === s._id
                         ? "bg-[#FF8C00] text-white border-[#FF8C00]"
-                        : "bg-white/10 text-white border-white/20 hover:bg-white/20"
+                        : "bg-black/5 text-black border-black/10 hover:bg-black/10"
                     )}
                   >
                     {s.size.toUpperCase()}
@@ -202,9 +202,33 @@ const Header = ({ data }: { data: Product }) => {
         {/* Selected Variant Details */}
         {selectedVariant && selectedVariant.description && (
           <>
-            <div className="mb-5 bg-white/5 p-4 rounded-xl border border-white/10 text-left">
-              <h4 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-1">Variant Details</h4>
-              <p className="text-sm text-white/80">{selectedVariant.description}</p>
+            <div className="mb-5 bg-black/5 p-4 rounded-xl border border-black/10 text-left">
+              <h4 className="text-xs font-semibold text-black/50 uppercase tracking-wider mb-1">Variant Details</h4>
+              <p className="text-sm text-black/80">{selectedVariant.description}</p>
+            </div>
+            <hr className="h-[1px] border-t-black/10 mb-5" />
+          </>
+        )}
+
+        {/* Amenities Section */}
+        {data.amenities && data.amenities.length > 0 && (
+          <>
+            <div className="mb-5 flex flex-col">
+              <span className="text-sm sm:text-base font-semibold text-black mb-3">Amenities & Features</span>
+              <div className="flex flex-wrap gap-2">
+                {data.amenities.map((amenity, idx) => {
+                  const amName = typeof amenity === 'string' ? amenity : (amenity as any).name || 'Amenity';
+                  return (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-2 px-3 py-1.5 bg-[#e8f5e9] border border-[#a5d6a7] rounded-full text-[#1B5E20] text-sm font-medium hover:bg-[#c8e6c9] transition-colors"
+                    >
+                      <IoMdCheckmark className="text-[#388e3c]" />
+                      {amName}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <hr className="h-[1px] border-t-black/10 mb-5" />
           </>

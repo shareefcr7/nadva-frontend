@@ -23,7 +23,7 @@ ${attributes.length > 0 ? `Details: ${attributes.join(", ")}\n` : ""}Price: ₹$
         rel="noopener noreferrer"
         className="bg-[#25D366] text-white w-full rounded-full h-11 md:h-[52px] text-sm sm:text-base flex items-center justify-center hover:bg-[#128C7E] transition-all font-medium"
       >
-        Book on WhatsApp
+      Enquiry Now
       </a>
     </div>
   );
