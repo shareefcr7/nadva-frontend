@@ -114,7 +114,7 @@ const SearchInput = () => {
     <div className="relative w-full md:mr-3 lg:mr-10">
       <form onSubmit={handleSearch}>
         <InputGroup className="flex bg-[#F0F0F0]">
-          <InputGroup.Input
+          {/* <InputGroup.Input
             ref={inputRef}
             type="search"
             name="search"
@@ -123,7 +123,7 @@ const SearchInput = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => query && suggestions.length > 0 && setShowSuggestions(true)}
-          />
+          /> */}
         </InputGroup>
       </form>
 

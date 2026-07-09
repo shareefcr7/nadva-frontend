@@ -170,10 +170,22 @@
 @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 640px) {
+  .banner-root {
+    height: 60vh;
+    min-height: 380px;
+    max-height: 520px;
+  }
   .arrow-btn { display: none; }
   .banner-content { padding: 0 5vw; }
   .banner-content.right { justify-content: flex-start; }
   .slide-overlay.right {
-    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.72) 55%, rgba(255,255,255,0.12) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.72) 55%, rgba(255,255,255,0.12) 100%);
+  }
+}
+@media (max-width: 480px) {
+  .banner-root {
+    height: 55vh;
+    min-height: 340px;
+    max-height: 480px;
   }
 }

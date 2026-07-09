@@ -28,15 +28,7 @@ const TopNavbar = () => {
 
   return (
     <nav
-      className={cn(
-        "z-50 transition-all duration-500",
-        isHome ? "fixed top-0 left-0 right-0 w-full" : "sticky top-0 w-full",
-        isHome
-          ? isScrolled
-            ? "bg-white/80 backdrop-blur-md shadow-lg border-b border-black/5 py-3"
-            : "bg-transparent py-5 md:py-6"
-          : "bg-white/90 backdrop-blur-md shadow-md border-b border-black/5 py-3"
-      )}
+      className="z-50 sticky top-0 w-full bg-white/90 backdrop-blur-md shadow-md border-b border-black/5 py-3 transition-all duration-500"
     >
       <div className="flex relative max-w-frame mx-auto items-center justify-between md:justify-start px-4 xl:px-0">
         <div className="flex items-center">
@@ -49,10 +41,7 @@ const TopNavbar = () => {
               alt="VARUNA Logo"
               width={80}
               height={80}
-              className={cn(
-                "rounded-lg object-contain transition-all duration-500",
-                (!isHome || isScrolled) ? "h-12 w-12" : "h-16 w-16"
-              )}
+              className="rounded-lg object-contain transition-all duration-500 h-12 w-12"
               priority
             />
           </Link>

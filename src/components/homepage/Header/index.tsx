@@ -249,6 +249,11 @@ export default function HeroBanner() {
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 640px) {
+          .banner-root {
+            height: 60vh;
+            min-height: 380px;
+            max-height: 520px;
+          }
           .arrow-btn { display: none; }
           .banner-content { padding: 0 clamp(1rem, 4vw, 1.5rem); }
           .banner-content.right { justify-content: flex-start; }
@@ -259,6 +264,11 @@ export default function HeroBanner() {
           .banner-content.center .text-block { max-width: 100%; }
         }
         @media (max-width: 480px) {
+          .banner-root {
+            height: 55vh;
+            min-height: 340px;
+            max-height: 480px;
+          }
           .slide-headline { margin-bottom: 8px; }
           .slide-sub { margin-bottom: 16px; }
           .banner-content { padding: 0 1rem; }
