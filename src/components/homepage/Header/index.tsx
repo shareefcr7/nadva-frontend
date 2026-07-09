@@ -141,8 +141,8 @@ export default function HeroBanner() {
           font-family: 'DM Sans', sans-serif;
           position: relative;
           width: 100%;
-          height: 92vh;
-          min-height: 520px;
+          height: clamp(55vh, 92vh, 900px);
+          min-height: 420px;
           max-height: 900px;
           background: #070707;
           overflow: hidden;
@@ -181,7 +181,7 @@ export default function HeroBanner() {
         .banner-content {
           position: absolute; inset: 0; z-index: 4;
           display: flex; align-items: center;
-          padding: 0 7vw; box-sizing: border-box;
+          padding: 0 clamp(1.5rem, 5vw, 7vw); box-sizing: border-box;
         }
         .banner-content.center { justify-content: center; text-align: center; }
         .banner-content.right  { justify-content: flex-end; }
@@ -191,23 +191,23 @@ export default function HeroBanner() {
 
         .slide-headline {
           font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2.2rem, 6.5vw, 6.2rem);
+          font-size: clamp(1.8rem, 5.5vw, 6.2rem);
           font-weight: 300;
-          line-height: 1.05;
+          line-height: 1.1;
           letter-spacing: -0.01em;
           color: #D4AF37;
           white-space: pre-line;
           word-break: break-word;
-          margin: 0 0 20px;
+          margin: 0 0 clamp(12px, 2vw, 20px);
           opacity: 0;
           transform: translateY(24px);
           animation: fadeUp 0.6s 0.22s forwards;
         }
 
         .slide-sub {
-          font-size: clamp(0.8rem, 2vw, 0.95rem);
-          font-weight: 300; line-height: 1.65; color: #ccc;
-          max-width: 400px; margin-bottom: 36px;
+          font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+          font-weight: 300; line-height: 1.6; color: #ccc;
+          max-width: 400px; margin-bottom: clamp(20px, 3vw, 36px);
           opacity: 0; transform: translateY(20px);
           animation: fadeUp 0.6s 0.36s forwards;
         }
@@ -250,11 +250,18 @@ export default function HeroBanner() {
 
         @media (max-width: 640px) {
           .arrow-btn { display: none; }
-          .banner-content { padding: 0 5vw; }
+          .banner-content { padding: 0 clamp(1rem, 4vw, 1.5rem); }
           .banner-content.right { justify-content: flex-start; }
           .slide-overlay.right {
             background: linear-gradient(180deg,rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.6) 55%,rgba(0,0,0,0.2) 100%);
           }
+          .text-block { max-width: 100%; }
+          .banner-content.center .text-block { max-width: 100%; }
+        }
+        @media (max-width: 480px) {
+          .slide-headline { margin-bottom: 8px; }
+          .slide-sub { margin-bottom: 16px; }
+          .banner-content { padding: 0 1rem; }
         }
       `}</style>
 

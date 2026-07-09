@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @import "./banner.css";
 
 @tailwind base;
@@ -6,16 +8,16 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 250, 249, 248;
+  
+  /* Luxury Color Palette */
+  --luxury-gold: #D4AF37;
+  --luxury-dark: #0F0F0F;
+  --luxury-cream: #FAF9F8;
+  --luxury-slate: #2F2F2F;
+  --luxury-light-gray: #F5F3F0;
+  --accent-gold: #E6C200;
 }
 
 @layer utilities {

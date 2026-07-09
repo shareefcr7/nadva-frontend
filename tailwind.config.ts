@@ -12,6 +12,8 @@ const config: Config = {
       fontFamily: {
         integralCF: ["var(--font-integralCF)"],
         satoshi: ["var(--font-satoshi)"],
+        playfair: ["'Playfair Display'", "serif"],
+        inter: ["'Inter'", "sans-serif"],
       },
       screens: {
         xs: "375px",
@@ -22,17 +24,15 @@ const config: Config = {
       maxWidth: {
         frame: "77.5rem",
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
       colors: {
+        luxury: {
+          gold: "#D4AF37",
+          dark: "#0F0F0F",
+          cream: "#FAF9F8",
+          slate: "#2F2F2F",
+          "light-gray": "#F5F3F0",
+          "accent-gold": "#E6C200",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -74,6 +74,11 @@ const config: Config = {
           "5": "hsl(var(--chart-5))",
         },
       },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
       keyframes: {
         "accordion-down": {
           from: {
@@ -91,10 +96,34 @@ const config: Config = {
             height: "0",
           },
         },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "slide-up": {
+          from: { transform: "translateY(30px)", opacity: "0" },
+          to: { transform: "translateY(0)", opacity: "1" },
+        },
+        "slide-in-left": {
+          from: { transform: "translateX(-50px)", opacity: "0" },
+          to: { transform: "translateX(0)", opacity: "1" },
+        },
+        "scale-in": {
+          from: { transform: "scale(0.95)", opacity: "0" },
+          to: { transform: "scale(1)", opacity: "1" },
+        },
+        "parallax": {
+          "0%": { transform: "translateY(0px)" },
+          "100%": { transform: "translateY(-50px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.6s ease-out",
+        "slide-up": "slide-up 0.7s ease-out",
+        "slide-in-left": "slide-in-left 0.7s ease-out",
+        "scale-in": "scale-in 0.5s ease-out",
       },
     },
   },

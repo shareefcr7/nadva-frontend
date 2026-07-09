@@ -114,17 +114,12 @@ const SearchInput = () => {
     <div className="relative w-full md:mr-3 lg:mr-10">
       <form onSubmit={handleSearch}>
         <InputGroup className="flex bg-[#F0F0F0]">
-          <InputGroup.Text>
-            <button type="submit" aria-label="Search" className="flex items-center justify-center focus:outline-none hover:opacity-70 transition-opacity">
-              <Image priority src="/icons/search.svg" height={20} width={20} alt="search" className="min-w-5 min-h-5" />
-            </button>
-          </InputGroup.Text>
           <InputGroup.Input
             ref={inputRef}
             type="search"
             name="search"
-            placeholder=""
-            className="bg-transparent placeholder:text-black/40"
+            placeholder="Search products..."
+            className="bg-transparent placeholder:text-black/40 w-full pl-4"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => query && suggestions.length > 0 && setShowSuggestions(true)}

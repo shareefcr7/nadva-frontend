@@ -44,11 +44,11 @@ const ProductListSec = ({ title, data, viewAllLink }: ProductListSecProps) => {
           }}
           className="w-full mb-6 md:mb-9"
         >
-          <CarouselContent className="mx-4 xl:mx-0 space-x-4 sm:space-x-5">
+          <CarouselContent className="px-4 sm:px-0 space-x-3 sm:space-x-4 lg:space-x-5">
             {data.map((product) => (
               <CarouselItem
                 key={product.id}
-                className="w-full max-w-[198px] sm:max-w-[295px] pl-0"
+                className="w-full max-w-[150px] xs:max-w-[175px] sm:max-w-[245px] md:max-w-[280px] lg:max-w-[295px] pl-0 basis-auto"
               >
                 <ProductCard data={product} />
               </CarouselItem>
@@ -59,7 +59,7 @@ const ProductListSec = ({ title, data, viewAllLink }: ProductListSecProps) => {
           <div className="w-full px-4 sm:px-0 text-center">
             <Link
               href={viewAllLink}
-              className="w-full inline-block sm:w-[218px] px-[54px] py-4 border rounded-full hover:bg-black hover:text-white text-black transition-all font-medium text-sm sm:text-base border-black/10"
+              className="w-full inline-block sm:w-[218px] px-[54px] py-3.5 border rounded-full hover:bg-[#FF8C00] hover:text-white text-black hover:border-transparent transition-all duration-300 font-semibold text-sm sm:text-base border-black/15 shadow-sm hover:shadow-md transform hover:-translate-y-[1px]"
             >
               View All
             </Link>
