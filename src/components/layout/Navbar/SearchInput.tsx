@@ -114,6 +114,7 @@ const SearchInput = () => {
     <div className="relative w-full md:mr-3 lg:mr-10">
       <form onSubmit={handleSearch}>
         <InputGroup className="flex bg-[#F0F0F0]">
+          <></>
           {/* <InputGroup.Input
             ref={inputRef}
             type="search"
