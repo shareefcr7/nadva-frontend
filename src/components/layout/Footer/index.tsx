@@ -20,7 +20,7 @@ const socialsData: SocialNetworks[] = [
   {
     id: 3,
     icon: <FaInstagram />,
-    url: "https://www.instagram.com/auravault06?igsh=NzBudmE1YTlsemNo",
+    url: "https://www.instagram.com/nadav.resorts?igsh=MTV2cnVrNWYxcGt5NQ%3D%3D&utm_source=qr",
   },
   {
     id: 4,
