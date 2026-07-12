@@ -32,7 +32,7 @@ const ProductCard = ({ data, priority = false }: ProductCardProps) => {
       </p>
       <div className="flex items-center space-x-[5px] xl:space-x-2.5 mb-3 mt-auto">
         <span className="font-bold text-[#FF8C00] text-sm sm:text-base lg:text-lg">
-          Starting from ₹{data.price}
+          ₹{data.price}
         </span>
       </div>
       <div className="w-full">

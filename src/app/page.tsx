@@ -20,8 +20,7 @@ async function getProducts(): Promise<Product[]> {
     return data.products.map((p: any) => {
       const defaultVariant =
         p.variants?.find((v: any) => v.isDefault) || p.variants?.[0];
-      const prices = p.variants?.map((v: any) => v.price).filter((pr: any) => typeof pr === 'number' && !isNaN(pr)) || [];
-      const startingPrice = prices.length > 0 ? Math.min(...prices) : (defaultVariant?.price || 0);
+      const startingPrice = defaultVariant?.price || 0;
 
       return {
         id: p._id,

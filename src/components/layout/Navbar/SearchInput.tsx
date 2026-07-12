@@ -19,6 +19,7 @@ const SearchInput = () => {
   const searchQuery = searchParams.get("search") || "";
 
   const [query, setQuery] = useState(searchQuery);
+  const [placeholder, setPlaceholder] = useState("Search Resorts, Events...");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -31,6 +32,19 @@ const SearchInput = () => {
     setQuery(searchQuery);
     setShowSuggestions(false);
   }, [searchQuery]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setPlaceholder("Search...");
+      } else {
+        setPlaceholder("Search Resorts, Events...");
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (!query.trim() || !api) {
@@ -114,17 +128,25 @@ const SearchInput = () => {
     <div className="relative w-full md:mr-3 lg:mr-10">
       <form onSubmit={handleSearch}>
         <InputGroup className="flex bg-[#F0F0F0]">
-          <></>
-          {/* <InputGroup.Input
+          <InputGroup.Text>
+            <Image
+              src="/icons/search.svg"
+              alt="search"
+              width={20}
+              height={20}
+              className="opacity-40"
+            />
+          </InputGroup.Text>
+          <InputGroup.Input
             ref={inputRef}
             type="search"
             name="search"
-            placeholder="Search products..."
-            className="bg-transparent placeholder:text-black/40 w-full pl-4"
+            placeholder={placeholder}
+            className="bg-transparent placeholder:text-black/40 w-full pl-2 text-white"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => query && suggestions.length > 0 && setShowSuggestions(true)}
-          /> */}
+          />
         </InputGroup>
       </form>
 
@@ -158,7 +180,7 @@ const SearchInput = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-black truncate">{p.title}</p>
-                    <p className="text-xs text-white/60">{p.category}</p>
+                    <p className="text-xs text-black/60">{p.category}</p>
                     <p className="text-sm font-semibold text-black mt-0.5">₹{p.price}</p>
                   </div>
                 </button>
@@ -171,7 +193,7 @@ const SearchInput = () => {
               </button>
             </div>
           ) : (
-            <div className="p-4 text-center text-white/60 text-sm">No products found</div>
+            <div className="p-4 text-center text-black/60 text-sm">No products found</div>
           )}
         </div>
       )}

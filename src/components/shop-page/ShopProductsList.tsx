@@ -129,8 +129,7 @@ const ShopProductsList = () => {
         if (data.products && Array.isArray(data.products)) {
           const mapped: Product[] = data.products.map((p: any) => {
             const v = p.variants?.find((v: any) => v.isDefault) || p.variants?.[0];
-            const prices = p.variants?.map((v: any) => v.price).filter((pr: any) => typeof pr === 'number' && !isNaN(pr)) || [];
-            const startingPrice = prices.length > 0 ? Math.min(...prices) : (v?.price || 0);
+            const startingPrice = v?.price || 0;
 
             return {
               id: p._id,
@@ -179,7 +178,7 @@ const ShopProductsList = () => {
     <div className="flex flex-col w-full space-y-5">
       {/* Active filter labels */}
       {(search || categories || minPrice || maxPrice) && (
-        <div className="text-sm text-white/60 space-y-1">
+        <div className="text-sm text-black/60 space-y-1">
           {search && <p>Results for: <span className="font-semibold text-black">"{search}"</span></p>}
           {categories && <p>Category: <span className="font-semibold text-black">{categories.split(",").join(", ")}</span></p>}
           {(minPrice || maxPrice) && (
@@ -201,7 +200,7 @@ const ShopProductsList = () => {
         </div>
       ) : (
         <div className="w-full text-center py-20">
-          <p className="text-white/60">
+          <p className="text-black/60">
             {search ? `No products found for "${search}".` : "Loading..."}
           </p>
         </div>
