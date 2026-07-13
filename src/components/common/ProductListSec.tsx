@@ -48,7 +48,7 @@ const ProductListSec = ({ title, data, viewAllLink }: ProductListSecProps) => {
             {data.map((product) => (
               <CarouselItem
                 key={product.id}
-                className="w-full max-w-[150px] xs:max-w-[175px] sm:max-w-[245px] md:max-w-[280px] lg:max-w-[295px] pl-0 basis-auto"
+                className="w-[calc(50%-6px)] sm:w-full sm:max-w-[245px] md:max-w-[280px] lg:max-w-[295px] pl-0 basis-auto shrink-0"
               >
                 <ProductCard data={product} />
               </CarouselItem>
