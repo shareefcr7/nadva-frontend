@@ -250,10 +250,9 @@ export default function HeroBanner() {
 
         @media (max-width: 640px) {
           .banner-root {
-            height: auto;
-            aspect-ratio: 16 / 11;
-            min-height: unset;
-            max-height: unset;
+            height: 60vh;
+            min-height: 380px;
+            max-height: 520px;
           }
           .arrow-btn { display: none; }
           .banner-content { padding: 0 clamp(1rem, 4vw, 1.5rem); }
@@ -266,10 +265,9 @@ export default function HeroBanner() {
         }
         @media (max-width: 480px) {
           .banner-root {
-            height: auto;
-            aspect-ratio: 16 / 11;
-            min-height: unset;
-            max-height: unset;
+            height: 55vh;
+            min-height: 340px;
+            max-height: 480px;
           }
           .slide-headline { margin-bottom: 8px; }
           .slide-sub { margin-bottom: 16px; }
