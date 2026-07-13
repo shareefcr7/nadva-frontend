@@ -169,13 +169,13 @@ export default function HeroBanner() {
 
         .slide-overlay {
           position: absolute; inset: 0; z-index: 3;
-          background: linear-gradient(105deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.2) 100%);
+          background: linear-gradient(105deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0) 100%);
         }
         .slide-overlay.center {
-          background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 38%, rgba(0,0,0,0.3) 100%);
+          background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.25) 38%, rgba(0,0,0,0.15) 100%);
         }
         .slide-overlay.right {
-          background: linear-gradient(255deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.2) 100%);
+          background: linear-gradient(255deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0) 100%);
         }
 
         .banner-content {
@@ -259,7 +259,7 @@ export default function HeroBanner() {
           .banner-content { padding: 0 clamp(1rem, 4vw, 1.5rem); }
           .banner-content.right { justify-content: flex-start; }
           .slide-overlay.right {
-            background: linear-gradient(180deg,rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.6) 55%,rgba(0,0,0,0.2) 100%);
+            background: linear-gradient(180deg,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.2) 55%,rgba(0,0,0,0.1) 100%);
           }
           .text-block { max-width: 100%; }
           .banner-content.center .text-block { max-width: 100%; }
