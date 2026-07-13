@@ -171,9 +171,9 @@
 
 @media (max-width: 640px) {
   .banner-root {
-    height: 60vh;
-    min-height: 380px;
-    max-height: 520px;
+    height: 56.25vw;
+    min-height: 200px;
+    max-height: 380px;
   }
   .arrow-btn { display: none; }
   .banner-content { padding: 0 5vw; }
@@ -184,8 +184,8 @@
 }
 @media (max-width: 480px) {
   .banner-root {
-    height: 55vh;
-    min-height: 340px;
-    max-height: 480px;
+    height: 56.25vw;
+    min-height: 200px;
+    max-height: 320px;
   }
 }
