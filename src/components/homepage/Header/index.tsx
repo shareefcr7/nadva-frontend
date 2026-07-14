@@ -294,7 +294,7 @@ export default function HeroBanner() {
                   src={s.mobileImage}
                   alt={s.headline || "banner mobile"}
                   fill
-                  style={{ objectFit: "cover", objectPosition: "center" }}
+                  style={{ objectFit: "cover", objectPosition: "top" }}
                   priority={i === 0}
                   sizes="100vw"
                   unoptimized
@@ -306,7 +306,7 @@ export default function HeroBanner() {
                   src={s.desktopImage}
                   alt={s.headline || "banner desktop"}
                   fill
-                  style={{ objectFit: "cover", objectPosition: "center" }}
+                  style={{ objectFit: "cover", objectPosition: "top" }}
                   priority={i === 0}
                   sizes="100vw"
                   unoptimized
