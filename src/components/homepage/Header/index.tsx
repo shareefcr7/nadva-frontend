@@ -141,27 +141,24 @@ export default function HeroBanner() {
           font-family: 'DM Sans', sans-serif;
           position: relative;
           width: 100%;
-          height: clamp(55vh, 92vh, 900px);
-          min-height: 420px;
-          max-height: 900px;
+          height: auto;
           background: #070707;
           overflow: hidden;
           cursor: default;
         }
 
         .slide-img-wrap {
-          position: absolute;
-          inset: 0;
+          width: 100%;
           transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
                       transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .slide-img-wrap.active  { opacity: 1; transform: scale(1.03); z-index: 2; }
-        .slide-img-wrap.exiting { opacity: 0; transform: scale(1);    z-index: 1; }
-        .slide-img-wrap.idle    { opacity: 0; z-index: 0; }
+        .slide-img-wrap.active  { position: relative; opacity: 1; transform: scale(1.03); z-index: 2; }
+        .slide-img-wrap.exiting { position: absolute; inset: 0; opacity: 0; transform: scale(1);    z-index: 1; }
+        .slide-img-wrap.idle    { position: absolute; inset: 0; opacity: 0; z-index: 0; }
 
         /* Responsive image display — pure CSS, no window checks */
-        .banner-img-mobile  { display: block; position: absolute; inset: 0; }
-        .banner-img-desktop { display: none;  position: absolute; inset: 0; }
+        .banner-img-mobile  { display: block; position: relative; width: 100%; height: auto; }
+        .banner-img-desktop { display: none;  position: relative; width: 100%; height: auto; }
         @media (min-width: 768px) {
           .banner-img-mobile  { display: none; }
           .banner-img-desktop { display: block; }
@@ -250,9 +247,7 @@ export default function HeroBanner() {
 
         @media (max-width: 640px) {
           .banner-root {
-            height: 56.25vw;
-            min-height: 200px;
-            max-height: 380px;
+            height: auto;
           }
           .arrow-btn { display: none; }
           .banner-content { padding: 0 clamp(1rem, 4vw, 1.5rem); }
@@ -265,9 +260,7 @@ export default function HeroBanner() {
         }
         @media (max-width: 480px) {
           .banner-root {
-            height: 56.25vw;
-            min-height: 200px;
-            max-height: 320px;
+            height: auto;
           }
           .slide-headline { margin-bottom: 8px; }
           .slide-sub { margin-bottom: 16px; }
@@ -290,26 +283,18 @@ export default function HeroBanner() {
             <div key={s._id} className={cls} aria-hidden={i !== current}>
               {/* Mobile image — shown below 768px */}
               <div className="banner-img-mobile">
-                <Image
+                <img
                   src={s.mobileImage}
                   alt={s.headline || "banner mobile"}
-                  fill
-                  style={{ objectFit: "cover", objectPosition: "top" }}
-                  priority={i === 0}
-                  sizes="100vw"
-                  unoptimized
+                  style={{ width: "100%", height: "auto", display: "block" }}
                 />
               </div>
               {/* Desktop image — shown at 768px+ */}
               <div className="banner-img-desktop">
-                <Image
+                <img
                   src={s.desktopImage}
                   alt={s.headline || "banner desktop"}
-                  fill
-                  style={{ objectFit: "cover", objectPosition: "top" }}
-                  priority={i === 0}
-                  sizes="100vw"
-                  unoptimized
+                  style={{ width: "100%", height: "auto", display: "block" }}
                 />
               </div>
             </div>
