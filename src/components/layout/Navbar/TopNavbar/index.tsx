@@ -83,7 +83,7 @@ const TopNavbar = () => {
           
           <Link 
             href="/shop" 
-            className="hidden lg:inline-block text-xs xl:text-sm font-semibold text-white bg-[#1B5E20] hover:bg-[#154d19] px-5 py-2 rounded-full transition-all duration-200 whitespace-nowrap shadow-sm"
+            className="hidden lg:flex items-center justify-center text-xs xl:text-sm font-semibold text-white bg-[#1B5E20] hover:bg-[#154d19] px-6 h-11 rounded-full transition-all duration-200 whitespace-nowrap shadow-sm"
           >
             All Resorts
           </Link>

@@ -127,14 +127,14 @@ const SearchInput = () => {
   return (
     <div className="relative w-full md:mr-3 lg:mr-10">
       <form onSubmit={handleSearch}>
-        <InputGroup className="flex bg-[#F0F0F0]">
+        <InputGroup className="flex bg-[#f5f5f5] border border-black/5 h-11">
           <InputGroup.Text>
             <Image
               src="/icons/search.svg"
               alt="search"
               width={20}
               height={20}
-              className="opacity-40"
+              style={{ filter: "brightness(0) opacity(0.4)" }}
             />
           </InputGroup.Text>
           <InputGroup.Input
@@ -142,7 +142,7 @@ const SearchInput = () => {
             type="search"
             name="search"
             placeholder={placeholder}
-            className="bg-transparent placeholder:text-black/40 w-full pl-2 text-white"
+            className="bg-transparent placeholder:text-gray-400 w-full pl-2 text-gray-800 h-full py-0"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => query && suggestions.length > 0 && setShowSuggestions(true)}
