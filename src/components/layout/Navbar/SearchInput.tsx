@@ -127,8 +127,8 @@ const SearchInput = () => {
   return (
     <div className="relative w-full md:mr-3 lg:mr-10">
       <form onSubmit={handleSearch}>
-        <InputGroup className="flex bg-[#f5f5f5] border border-black/5 h-11">
-          <InputGroup.Text>
+        <InputGroup className="flex bg-[#f5f5f5] border border-black/5 h-11 pl-0">
+          <InputGroup.Text className="absolute left-4 md:left-5 top-1/2 -translate-y-1/2 z-10 mr-0 pointer-events-none">
             <Image
               src="/icons/search.svg"
               alt="search"
@@ -142,7 +142,7 @@ const SearchInput = () => {
             type="search"
             name="search"
             placeholder={placeholder}
-            className="bg-transparent placeholder:text-gray-400 w-full pl-2 text-gray-800 h-full py-0"
+            className="bg-transparent placeholder:text-gray-400 placeholder:text-[15px] md:placeholder:text-base w-full pl-12 md:pl-14 text-gray-800 h-full py-0"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => query && suggestions.length > 0 && setShowSuggestions(true)}
