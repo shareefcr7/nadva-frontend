@@ -2,6 +2,7 @@ import ProductListSec from "@/components/common/ProductListSec";
 import HeroBanner from "@/components/homepage/Header";
 import FacilitiesSection from "@/components/homepage/FacilitiesSection";
 import { Product } from "@/types/product.types";
+import { Banner } from "@/types/banner.types";
 
 export const revalidate = 60;
 
@@ -55,20 +56,41 @@ async function getFacilities() {
   }
 }
 
+async function getBanners(): Promise<Banner[]> {
+  if (!api) return [];
+  try {
+    const res = await fetch(`${api}/banner`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok || !res.headers.get("content-type")?.includes("application/json")) return [];
+    const data = await res.json();
+    return data.banners ?? [];
+  } catch (error) {
+    console.error("Error fetching banners:", error);
+    return [];
+  }
+}
+
 // Server component — no "use client", no useEffect, no client-side waterfall
 export default async function Home() {
-  const [products, facilities] = await Promise.all([getProducts(), getFacilities()]);
+  const [products, facilities, banners] = await Promise.all([
+    getProducts(),
+    getFacilities(),
+    getBanners(),
+  ]);
 
   return (
     <>
-      <HeroBanner />
+      <HeroBanner banners={banners} />
       <FacilitiesSection facilities={facilities} />
       <main className="my-[50px] sm:my-[72px]">
-        <ProductListSec
-          title="Explore for More"
-          data={products}
-          viewAllLink="/shop#new-arrivals"
-        />
+        <div id="tarif">
+          <ProductListSec
+            title="Our Packages & Tarif"
+            data={products}
+            viewAllLink="/shop"
+          />
+        </div>
         <div className="max-w-frame mx-auto px-4 xl:px-0">
           <hr className="h-[1px] border-t-black/10 my-10 sm:my-16" />
         </div>

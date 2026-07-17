@@ -19,7 +19,7 @@ export default function FacilitiesSection({ facilities }: Props) {
   if (active.length === 0) return null;
 
   return (
-    <section className="max-w-frame mx-auto px-4 xl:px-0 my-10 sm:my-16">
+    <section id="products" className="max-w-frame mx-auto px-4 xl:px-0 my-10 sm:my-16 scroll-mt-20">
       <style>{`
         .facilities-grid {
           display: grid;
@@ -61,14 +61,14 @@ export default function FacilitiesSection({ facilities }: Props) {
         .facility-card:hover {
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.01);
           transform: translateY(-6px);
-          border-color: rgba(212, 175, 55, 0.2);
+          border-color: rgba(255, 140, 0, 0.25);
         }
         .facility-icon-wrap {
           width: clamp(48px, 9vw, 64px);
           height: clamp(48px, 9vw, 64px);
           border-radius: clamp(12px, 2.2vw, 18px);
           background: #fffdf9;
-          border: 1.5px solid rgba(212, 175, 55, 0.15);
+          border: 1.5px solid rgba(255, 140, 0, 0.2);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -79,7 +79,7 @@ export default function FacilitiesSection({ facilities }: Props) {
         .facility-card:hover .facility-icon-wrap {
           transform: scale(1.1) rotate(3deg);
           background: #fffaf0;
-          border-color: rgba(212, 175, 55, 0.4);
+          border-color: rgba(255, 140, 0, 0.5);
         }
         .facility-name {
           font-size: clamp(13px, 2.2vw, 15px);
@@ -101,14 +101,14 @@ export default function FacilitiesSection({ facilities }: Props) {
 
       <h2
         style={{
-          fontSize: "clamp(1.5rem, 4vw, 2rem)",
+          fontSize: "clamp(1.5rem, 4vw, 2.25rem)",
           fontWeight: 700,
           textAlign: "center",
-          marginBottom: "1.5rem",
+          marginBottom: "2rem",
           color: "#1a1a1a",
         }}
       >
-        Our Facilities
+        Resort Amenities & Services
       </h2>
 
       <div className="facilities-grid">

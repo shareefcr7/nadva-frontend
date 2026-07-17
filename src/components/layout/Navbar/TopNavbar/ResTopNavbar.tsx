@@ -40,9 +40,9 @@ const ResTopNavbar = ({ data }: { data: NavMenu }) => {
                 <Image
                   src="/images/logo.jpg"
                   alt="Nadav Resorts & Events Logo"
-                  width={60}
+                  width={200}
                   height={60}
-                  className="rounded-lg object-contain"
+                  className="rounded-lg object-contain h-16 w-auto"
                   priority
                 />
               </Link>

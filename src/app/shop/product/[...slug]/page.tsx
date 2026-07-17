@@ -90,22 +90,6 @@ export default async function ProductPage({
           <section className="mb-11">
             <Header data={productData} />
           </section>
-          
-          {/* Location Map Section */}
-          <section className="mb-11">
-            <h2 className="text-2xl font-bold mb-5">Location</h2>
-            <div className="w-full h-[400px] rounded-2xl overflow-hidden border border-border">
-              <iframe
-                src="https://maps.google.com/maps?q=11.207972,76.233894&z=15&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-          </section>
         </div>
       </main>
     );
