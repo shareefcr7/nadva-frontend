@@ -32,7 +32,7 @@ const TopNavbar = () => {
     { id: 1, type: "MenuItem" as const, label: "Tarif", url: "/#tarif", children: [] },
     { id: 3, type: "MenuItem" as const, label: "Contact", url: "/#contact", children: [] },
     { id: 4, type: "MenuItem" as const, label: "Location", url: "/#location", children: [] },
-    { id: 5, type: "MenuItem" as const, label: "All Resorts", url: "/shop", children: [] },
+    { id: 5, type: "MenuItem" as const, label: "Our Facilities", url: "/shop", children: [] },
   ];
 
   return (
@@ -73,7 +73,7 @@ const TopNavbar = () => {
           ))}
         </div>
 
-        {/* Right: Search bar, "All Resorts" button (Desktop) and Mobile Menu Trigger */}
+        {/* Right: Search bar, "Our Facilities" button (Desktop) and Mobile Menu Trigger */}
         <div className="flex items-center gap-2.5 sm:gap-3.5 flex-1 justify-end max-w-md">
           <div className="flex-1 max-w-[160px] sm:max-w-xs md:max-w-sm">
             <Suspense fallback={<div className="h-9 bg-[#F0F0F0] rounded-full animate-pulse w-full" />}>
@@ -85,7 +85,7 @@ const TopNavbar = () => {
             href="/shop" 
             className="hidden lg:flex items-center justify-center text-xs xl:text-sm font-semibold text-white bg-[#1B5E20] hover:bg-[#154d19] px-6 h-11 rounded-full transition-all duration-200 whitespace-nowrap shadow-sm"
           >
-            All Resorts
+            Our Facilities
           </Link>
 
           {/* Mobile hamburger menu (below lg) */}
