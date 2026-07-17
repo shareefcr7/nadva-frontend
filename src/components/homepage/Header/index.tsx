@@ -49,19 +49,27 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
         >
           {/* Desktop Banner: Loaded on screens >= 768px */}
           <div className="hidden md:block w-full">
-            <img
+            <Image
               src={listToRender[currentIndex].desktopImage}
               alt="Palace's Nadav Resorts & Events"
+              width={1600}
+              height={600}
+              sizes="100vw"
               className="w-full h-auto block"
+              priority
             />
           </div>
 
           {/* Mobile Banner: Loaded on screens < 768px */}
           <div className="block md:hidden w-full">
-            <img
+            <Image
               src={listToRender[currentIndex].mobileImage}
               alt="Palace's Nadav Resorts & Events Mobile"
+              width={800}
+              height={1000}
+              sizes="100vw"
               className="w-full h-auto block"
+              priority
             />
           </div>
         </motion.div>
